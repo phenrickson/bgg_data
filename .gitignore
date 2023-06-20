@@ -41,4 +41,15 @@ rsconnect/
 # R package: bookdown caching files
 /*_files/
 # End of https://www.toptal.com/developers/gitignore/api/r
+
+# ignore .DS_Store
 .DS_Store
+
+# ignore model objects
+models/
+# ignore main data folder
+data/
+# ensure that specific folders are exceptions
+!src/data/
+!src/models/
+!data/processed

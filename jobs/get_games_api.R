@@ -9,6 +9,8 @@ library(dplyr)
 library(tidyr)
 library(readr)
 library(pins)
+library(DBI)
+library(bigrquery)
 
 
 # functions ---------------------------------------------------------------
@@ -66,6 +68,14 @@ bgg_games_raw$bgg_games_data |>
                 tags = c("raw", "api"),
                 description = paste("bgg ids from upload_ts", bgg_ids[1]$upload_ts)
         )
+
+# # read locally
+# bgg_api = 
+#         pins::pin_read(
+#                         board = pins::board_folder(here::here("data", "raw")),
+#                         name = "games_api"
+#         )
+# 
 
 # pull data from function
 bgg_api = bgg_games_raw$bgg_games_data

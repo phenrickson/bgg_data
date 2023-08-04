@@ -191,7 +191,7 @@ dbWriteTable(bigquery_connect(),
              overwrite = T,
              value = game_expansions)
 
-# game expansions
+# game names
 dbWriteTable(bigquery_connect(),
              name = "api_game_names",
              overwrite = T,

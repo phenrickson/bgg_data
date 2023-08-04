@@ -67,7 +67,9 @@ options.add_argument('--headless')
 
 # define driver
 # driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options = options)
+#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options = options)
+service = Service()
+driver = webdriver.Chrome(service=service, options=options)
 driver.maximize_window()
 driver.set_page_load_timeout(600)
 

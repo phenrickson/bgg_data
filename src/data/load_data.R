@@ -1,34 +1,34 @@
 # function to load most recent
+
+find_most_recent_ids_file = function(ids_folder) {
+        
+        file = 
+                ids_folder |>
+                # list files
+                list.files() |>
+                # convert to tibble
+                dplyr::as_tibble() |>
+                # filter to only bgg ids
+                dplyr::filter(grepl("^bgg_ids_", value)) %>%
+                # separate file name by underscore
+                tidyr::separate(value, into = c("source", "data", "date"), sep="_") |>
+                # separate date and file type
+                tidyr::separate(date, into = c("date", "type"), sep = "\\.") |>
+                # filter to most recent date
+                dplyr::filter(as.Date(date) == max(date)) |>
+                # get first in case of a tie
+                dplyr::slice_head(n = 1) |>
+                tidyr::unite(path, c("source", "data", "date"), sep = "_") |>
+                tidyr::unite(file, c("path", "type"), sep = ".") |>
+                dplyr::pull(file)
+        
+        message("most recent bgg ids: ", file)
+        
+        here::here(ids_folder, file)
+}
+
+
 load_most_recent_bgg_ids = function(ids_folder) {
-        
-        
-        find_most_recent_ids_file = function(ids_folder) {
-                
-                file = 
-                        ids_folder |>
-                        # list files
-                        list.files() |>
-                        # convert to tibble
-                        dplyr::as_tibble() |>
-                        # filter to only bgg ids
-                        dplyr::filter(grepl("^bgg_ids_", value)) %>%
-                        # separate file name by underscore
-                        tidyr::separate(value, into = c("source", "data", "date"), sep="_") |>
-                        # separate date and file type
-                        tidyr::separate(date, into = c("date", "type"), sep = "\\.") |>
-                        # filter to most recent date
-                        dplyr::filter(as.Date(date) == max(date)) |>
-                        # get first in case of a tie
-                        dplyr::slice_head(n = 1) |>
-                        tidyr::unite(path, c("source", "data", "date"), sep = "_") |>
-                        tidyr::unite(file, c("path", "type"), sep = ".") |>
-                        dplyr::pull(file)
-                
-                message("most recent bgg ids: ", file)
-                
-                here::here(ids_folder, file)
-        }
-        
         
         load_ids = function(ids_file) {
                 
@@ -96,7 +96,7 @@ get_game_names =
         }
 
 get_game_ids = 
-        function(bgg_games, ids) {
+        function(bgg_games, bgg_ids) {
                 
                 bgg_games %>%
                         filter(type == 'boardgame') %>%

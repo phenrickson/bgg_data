@@ -4,7 +4,11 @@ loading data from bgg's api to bigquery
 
 requires authentication to bigquery warehouse
 
-## jobs
+## targets
 
-1. scrape game_ids from bgg (scrape_ids)
-2. push game_ids to bgg's api, return results, and load to bigquery tables (get_games_api)
+uses targets package to create pipeline
+
+1. scrape game ids from bgg (via selenium with python)
+2. submit batches of requests for scraped game ids to bgg's api
+3. create tables from responses 
+4. store tables on bigquery

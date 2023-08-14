@@ -5,6 +5,7 @@
 
 # required package for targets
 library(targets)
+library(tarchetypes)
 
 # packages
 tar_option_set(
@@ -14,6 +15,7 @@ tar_option_set(
                      "pins",
                      "DBI",
                      "bigrquery",
+                     "reticulate",
                      "here")
 )
 
@@ -27,14 +29,23 @@ tar_source(here::here("src", "data", "connect_to_bigquery.R"))
 # functions to load data
 tar_source(here::here("src", "data", "load_data.R"))
 
-# Replace the target list below with your own:
 list(
+        # scrape universe of bgg ids with python
+        tar_target(
+                name = scraped_bgg_ids,
+                command = reticulate::source_python(here::here("src", "data", "scrape_bgg_ids.py")),
+                # only run if its been more than 6 days since previous run
+                cue = tar_cue_age(
+                        name = scraped_bgg_ids,
+                        age = as.difftime(6, units = "days"))
+        ),
         # load most recently scraped bgg ids
         tar_target(
                 name = bgg_ids,
                 command =
                         here("data", "raw") |>
-                        load_most_recent_bgg_ids()
+                        load_most_recent_bgg_ids() |>
+                        arrange(page)
         ),
         # make unique ids for request to api
         tar_target(
@@ -69,7 +80,7 @@ list(
                                                  bgg_games_second_pass$game_ids)),
                                 problem_game_ids =
                                         bgg_games_second_pass$problem_game_ids,
-                                
+
                                 bgg_games_data =
                                         bind_rows(bgg_games_resp$bgg_games_data,
                                                   bgg_games_second_pass$bgg_games_data)
@@ -195,7 +206,7 @@ list(
                 name = game_implementations,
                 command = bgg_api |>
                         get_link_type(link_type = 'implementation')
-                
+
         ),
         # designers
         tar_target(
@@ -233,7 +244,7 @@ list(
         # game info
         tar_target(
                 name = bq_game_info,
-                command =         
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "api_game_info",
                                      append = T,
@@ -242,7 +253,7 @@ list(
         # game names
         tar_target(
                 name = bq_game_names,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "api_game_names",
                                      overwrite = T,
@@ -283,7 +294,7 @@ list(
         # game images
         tar_target(
                 name = bq_game_images,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "api_game_images",
                                      overwrite = T,
@@ -292,7 +303,7 @@ list(
         # game descriptions
         tar_target(
                 name = bq_game_descriptions,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "api_game_descriptions",
                                      overwrite = T,
@@ -301,7 +312,7 @@ list(
         ### analysis tables
         tar_target(
                 name = bq_analysis_games,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_games",
                                      overwrite = T,
@@ -310,7 +321,7 @@ list(
         # unreleased games
         tar_target(
                 name = bq_unreleased_games,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_unreleased_games",
                                      append = T,
@@ -319,7 +330,7 @@ list(
         # games flagged to drop
         tar_target(
                 name = bq_drop_games,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_drop_games",
                                      append = T,
@@ -329,7 +340,7 @@ list(
         # not sure why im storing this twice...
         tar_target(
                 name = bq_analysis_game_descriptions,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_descriptions",
                                      append = T,
@@ -338,7 +349,7 @@ list(
         # ditto for images
         tar_target(
                 name = bq_analysis_game_images,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_images",
                                      append = T,
@@ -347,7 +358,7 @@ list(
         # analysis categories
         tar_target(
                 name = bq_analysis_game_categories,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_categories",
                                      append = T,
@@ -356,7 +367,7 @@ list(
         # analysis compilations
         tar_target(
                 name = bq_analysis_game_compilations,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_compilations",
                                      append = T,
@@ -365,7 +376,7 @@ list(
         # analysis designers
         tar_target(
                 name = bq_analysis_game_designers,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_designers",
                                      append = T,
@@ -374,7 +385,7 @@ list(
         # analysis families
         tar_target(
                 name = bq_analysis_game_families,
-                command = 
+                command =
                         # families
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_families",
@@ -384,7 +395,7 @@ list(
         # analysis implementations
         tar_target(
                 name = bq_analysis_implementations,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_implementations",
                                      append = T,
@@ -393,17 +404,17 @@ list(
         # analysis publishers
         tar_target(
                 name = bq_analysis_publishers,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_publishers",
                                      append = T,
                                      value = game_publishers)
-                
+
         ),
         # analysis artists
         tar_target(
                 name = bq_analysis_artists,
-                command = 
+                command =
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_artists",
                                      append = T,
@@ -412,7 +423,7 @@ list(
         # analysis mechanics
         tar_target(
                 name = bq_analysis_mechanics,
-                command = 
+                command =
                         # mechanics
                         dbWriteTable(bigquery_connect(),
                                      name = "analysis_game_mechanics",

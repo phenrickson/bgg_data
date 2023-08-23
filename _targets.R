@@ -39,19 +39,25 @@ list(
                         name = scraped_bgg_ids,
                         age = as.difftime(6, units = "days"))
         ),
-        # load most recently scraped bgg ids
+        # file location of most recently scraped ids
         tar_target(
-                name = bgg_ids,
+                name = most_recent_scraped_ids,
                 command =
                         here("data", "raw") |>
-                        load_most_recent_bgg_ids() |>
-                        arrange(page)
+                        find_most_recent_ids_file(),
+                format = "file",
+        ),
+        # load most recently scraped bgg ids
+        tar_target(
+                name = most_recent_ids,
+                command =
+                        data.table::fread(most_recent_scraped_ids),
         ),
         # make unique ids for request to api
         tar_target(
                 name = req_bgg_ids,
                 command =
-                        unique(bgg_ids$game_id)
+                        unique(most_recent_ids$game_id)
         ),
         # submit ids to api in batches
         tar_target(
@@ -168,7 +174,7 @@ list(
         # analysis
         tar_target(
                 name = analysis_games,
-                command = bgg_api |>
+                command = bgg_api %>%
                         get_analysis_games()
         ),
         # unreleased

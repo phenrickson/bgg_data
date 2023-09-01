@@ -74,7 +74,8 @@ list(
                 command =
                         if (length(bgg_games_resp$problem_game_ids) > 0) {
                                 bggUtils::get_bgg_games(bgg_games_resp$problem_game_ids)
-                        }
+                        },
+                error = "null"
         ),
         # add any missed back to raw
         tar_target(
@@ -102,7 +103,7 @@ list(
                                 name = "games_api",
                                 versioned = T,
                                 tags = c("raw", "api"),
-                                description = paste("bgg ids from upload_ts", bgg_ids[1]$upload_ts)
+                                description = paste("bgg ids from upload_ts", most_recent_ids[1]$upload_ts)
                         )
         ),
         # get api data from pin
@@ -119,7 +120,7 @@ list(
                         game_ids,
                 command =
                         get_game_ids(bgg_api,
-                                     bgg_ids)
+                                     most_recent_ids)
         ),
         # info
         tar_target(

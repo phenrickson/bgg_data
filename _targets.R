@@ -46,6 +46,9 @@ list(
                         here("data", "raw") |>
                         find_most_recent_ids_file(),
                 format = "file",
+                cue = tar_cue_age(
+                        name = most_recent_scraped_ids,
+                        age = as.difftime(6, units = "days"))
         ),
         # load most recently scraped bgg ids
         tar_target(
@@ -68,36 +71,39 @@ list(
                                                 tidy = T,
                                                 toJSON = F)
         ),
-        # second pass for any missed ids
-        tar_target(
-                name = bgg_games_second_pass,
-                command =
-                        if (length(bgg_games_resp$problem_game_ids) > 0) {
-                                bggUtils::get_bgg_games(bgg_games_resp$problem_game_ids)
-                        },
-                error = "null"
-        ),
+        # # second pass for any missed ids
+        # tar_target(
+        #         name = bgg_games_second_pass,
+        #         command =
+        #                 check_problem_ids,
+        #                 tryCatch(
+        #                         bggUtils::get_bgg_games(bgg_games_resp$problem_game_ids),
+        #                         error = stop
+        #                 ),
+        #         error = "continue"
+        # ),
         # add any missed back to raw
-        tar_target(
-                name = bgg_games_raw,
-                command =
-                        list(
-                                game_ids =
-                                        unique(c(bgg_games_resp$game_ids,
-                                                 bgg_games_second_pass$game_ids)),
-                                problem_game_ids =
-                                        bgg_games_second_pass$problem_game_ids,
-
-                                bgg_games_data =
-                                        bind_rows(bgg_games_resp$bgg_games_data,
-                                                  bgg_games_second_pass$bgg_games_data)
-                        )
-        ),
+        # tar_target(
+        #         name = bgg_games_raw,
+        #         command =
+        #                 bgg_games_resp
+        #                 # list(
+        #                 #         game_ids =
+        #                 #                 unique(c(bgg_games_resp$game_ids,
+        #                 #                          bgg_games_second_pass$game_ids)),
+        #                 #         problem_game_ids =
+        #                 #                 bgg_games_second_pass$problem_game_ids,
+        #                 # 
+        #                 #         bgg_games_data =
+        #                 #                 bind_rows(bgg_games_resp$bgg_games_data,
+        #                 #                           bgg_games_second_pass$bgg_games_data)
+        #                 # )
+        # ),
         # pin results locally
         tar_target(
                 name = pin_bgg_games,
                 command =
-                        bgg_games_raw$bgg_games_data |>
+                        bgg_games_resp$bgg_games_data |>
                         pins::pin_write(
                                 board = pins::board_folder(here::here("data", "raw")),
                                 name = "games_api",
@@ -111,7 +117,7 @@ list(
                 name =
                         bgg_api,
                 command =
-                        bgg_games_raw$bgg_games_data
+                        bgg_games_resp$bgg_games_data
         ),
         ### raw datasets for bigquery
         # ids

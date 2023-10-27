@@ -45,10 +45,6 @@ bigquery_download_table =
                 )
         } 
 
-# authenticate; default to using my email
-bigquery_authenticate = function(email = 'phil.henrickson@aebs.com') {
-        bigrquery::bq_auth(email = email)
-}
 
 # point to bigquery table
 bigquery_table = function(table) {
@@ -56,17 +52,4 @@ bigquery_table = function(table) {
         bigrquery::as_bq_table(list(project_id = bigquery_project_id(),
                                     dataset_id = bigquery_dataset(),
                                     table_id = table))
-}
-
-# confirm table exists on bigquery
-bigquery_exists = function(bq_table) {
-        
-        # confirm table exists
-        if (bigrquery::bq_table_exists(bq_table) == T) {
-                message("writing to...", print(bq_table))
-                bq_table
-        }  else {
-                stop("bigquery table does not exist!")
-        }
-        
 }

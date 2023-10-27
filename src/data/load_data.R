@@ -1,65 +1,3 @@
-# function to load most recent
-
-find_most_recent_ids_file = function(ids_folder) {
-        
-        file = 
-                ids_folder |>
-                # list files
-                list.files() |>
-                # convert to tibble
-                dplyr::as_tibble() |>
-                # filter to only bgg ids
-                dplyr::filter(grepl("^bgg_ids_", value)) %>%
-                # separate file name by underscore
-                tidyr::separate(value, into = c("source", "data", "date"), sep="_") |>
-                # separate date and file type
-                tidyr::separate(date, into = c("date", "type"), sep = "\\.") |>
-                # filter to most recent date
-                dplyr::filter(as.Date(date) == max(date)) |>
-                # get first in case of a tie
-                dplyr::slice_head(n = 1) |>
-                tidyr::unite(path, c("source", "data", "date"), sep = "_") |>
-                tidyr::unite(file, c("path", "type"), sep = ".") |>
-                dplyr::pull(file)
-        
-        message("most recent bgg ids: ", file)
-        
-        here::here(ids_folder, file)
-}
-
-
-load_most_recent_bgg_ids = function(ids_folder) {
-        
-        load_ids = function(ids_file) {
-                
-                # load
-                data.table::fread(ids_file)
-                
-        }
-        
-        
-        # transform output
-        transform_ids = function(ids) {
-                
-                ids |>
-                        dplyr::arrange(page) |>
-                        dplyr::mutate(page,
-                                      game_id,
-                                      raw_name,
-                                      tidy_name,
-                                      scraped_ts = timestamp,
-                                      upload_ts = Sys.time(),
-                                      .keep = 'none')
-        }
-        
-        # combine
-        ids_folder |> 
-                find_most_recent_ids_file() |> 
-                load_ids() |>
-                transform_ids()
-        
-}
-
 # get modeled data
 get_game_links =
         function(bgg_games) { 
@@ -646,7 +584,6 @@ get_game_categories =
                                   game_id,
                                   load_ts)
         }
-
 
 # run ---------------------------------------------------------------------
 

@@ -29,38 +29,34 @@ tar_source(here::here("src", "data", "connect_to_bigquery.R"))
 # functions to load data
 tar_source(here::here("src", "data", "load_data.R"))
 
+# get external file
+thing_ids =  read.table('https://bgg.activityclub.org/bggdata/thingids.txt')
+write.csv(thing_ids,
+          file = here::here("data", "raw", "ids", "thing_ids.csv"),
+          row.names = FALSE)
+
+# load ids
+get_ids <- function(file) {
+        read_csv(file, col_types = cols()) %>%
+                purrr::set_names(., c("id", "type"))
+}
+
 list(
-        # scrape universe of bgg ids with python
+        # load universe of ids courtesy of https://bgg.activityclub.org/bggdata/
         tar_target(
-                name = scraped_bgg_ids,
-                command = reticulate::source_python(here::here("src", "data", "scrape_bgg_ids.py")),
-                # only run if its been more than 6 days since previous run
-                cue = tar_cue_age(
-                        name = scraped_bgg_ids,
-                        age = as.difftime(6, units = "days"))
+                name = ids_file,
+                command = here::here("data", "raw", "ids", "thing_ids.csv"),
+                format = "file"
         ),
-        # file location of most recently scraped ids
+        # load ids
         tar_target(
-                name = most_recent_scraped_ids,
-                command =
-                        here("data", "raw") |>
-                        find_most_recent_ids_file(),
-                format = "file",
-                cue = tar_cue_age(
-                        name = most_recent_scraped_ids,
-                        age = as.difftime(6, units = "days"))
+                name = ids,
+                command = get_ids(ids_file)
         ),
-        # load most recently scraped bgg ids
-        tar_target(
-                name = most_recent_ids,
-                command =
-                        data.table::fread(most_recent_scraped_ids),
-        ),
-        # make unique ids for request to api
+        # filter to game ids
         tar_target(
                 name = req_bgg_ids,
-                command =
-                        unique(most_recent_ids$game_id)
+                command = ids |> filter(type == 'boardgame') |> pull(id)
         ),
         # submit ids to api in batches
         tar_target(
@@ -71,47 +67,6 @@ list(
                                                 tidy = T,
                                                 toJSON = F)
         ),
-        # # second pass for any missed ids
-        # tar_target(
-        #         name = bgg_games_second_pass,
-        #         command =
-        #                 check_problem_ids,
-        #                 tryCatch(
-        #                         bggUtils::get_bgg_games(bgg_games_resp$problem_game_ids),
-        #                         error = stop
-        #                 ),
-        #         error = "continue"
-        # ),
-        # add any missed back to raw
-        # tar_target(
-        #         name = bgg_games_raw,
-        #         command =
-        #                 bgg_games_resp
-        #                 # list(
-        #                 #         game_ids =
-        #                 #                 unique(c(bgg_games_resp$game_ids,
-        #                 #                          bgg_games_second_pass$game_ids)),
-        #                 #         problem_game_ids =
-        #                 #                 bgg_games_second_pass$problem_game_ids,
-        #                 # 
-        #                 #         bgg_games_data =
-        #                 #                 bind_rows(bgg_games_resp$bgg_games_data,
-        #                 #                           bgg_games_second_pass$bgg_games_data)
-        #                 # )
-        # ),
-        # pin results locally
-        tar_target(
-                name = pin_bgg_games,
-                command =
-                        bgg_games_resp$bgg_games_data |>
-                        pins::pin_write(
-                                board = pins::board_folder(here::here("data", "raw")),
-                                name = "games_api",
-                                versioned = T,
-                                tags = c("raw", "api"),
-                                description = paste("bgg ids from upload_ts", most_recent_ids[1]$upload_ts)
-                        )
-        ),
         # get api data from pin
         tar_target(
                 name =
@@ -120,14 +75,6 @@ list(
                         bgg_games_resp$bgg_games_data
         ),
         ### raw datasets for bigquery
-        # ids
-        tar_target(
-                name =
-                        game_ids,
-                command =
-                        get_game_ids(bgg_api,
-                                     most_recent_ids)
-        ),
         # info
         tar_target(
                 name = game_info,
@@ -244,15 +191,6 @@ list(
                 name = game_artists,
                 command = bgg_api |>
                         get_link_type(link_type = 'artist')
-        ),
-        ### bigquery tables
-        # game ids
-        tar_target(
-                name = bq_game_ids,
-                command = dbWriteTable(bigquery_connect(),
-                                       name = "api_game_ids",
-                                       overwrite = T,
-                                       value = game_ids)
         ),
         # game info
         tar_target(

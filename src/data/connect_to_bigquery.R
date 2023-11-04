@@ -16,13 +16,15 @@ bigquery_dataset = function() {
 
 # connect to specified data on gcp
 bigquery_connect = function(my_project_id = bigquery_project_id(),
-                            my_email = 'phil.henrickson@aebs.com',
+                            my_path = Sys.getenv("GCS_AUTH_FILE"),
                             my_dataset = bigquery_dataset()) {
         
         require(bigrquery)
         
-        # authenticate via email
-        bigrquery::bq_auth(email = my_email)
+        # authenticate via json
+        bigrquery::bq_auth(
+                path = my_path
+        )
         
         # establish connection
         bigrquery::dbConnect(

@@ -1,14 +1,14 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|83822cb78f290bba|||||||||||||||
+.Random.seed|object|826a220075b021b7|||||||||||||||
 accessory_ids|stem|615fb2056bf75dd7|ace02ef55e7755a7|dd66244fb6fce4fa|761774728||t19657.7784438835s|4738037710d293a3|21072|rds|local|vector|||0.012||
 analysis_games|stem|9992c8576fee47bb|7b99a590a4e4b7dd|bef2e8c23a3faafd|1194291902||t19687.7667728825s|967bc5bb581e464a|14577019|rds|local|vector|||15.498||
 bgg_api|stem|585520d39f905056|7d6500bd4f061439|357254719ddf6018|2080626255||t19687.7665192977s|704f74a4f3aa0951|76507302|rds|local|vector|||0.001||
 bgg_games_raw|stem|d13c123e7c33827e|4f6bc50a30dc583c|eabc29032bb09f7a|1549305642||t19615.6468674978s|4b89d3ba2676ba6f|75294360|rds|local|vector|||0||
 bgg_games_resp|stem|6d902fdc8ee94eba|20f51ce90efcded7|eda54979c5191865|-1338239676||t19687.7663951338s|1cf622dbd80c698e|76811177|rds|local|vector|||6491.288|problems with the following game ids 1e05. Unknown columns type, id, value. Unknown columns type, id, value|
 bgg_games_second_pass|stem|error|fb5e6523316c67c5|3f8c907d987955e6|-609197007||t19615.5823267233s||44|rds|local|vector|||0.934|Unknown or uninitialised column id.. problems with the following game ids 30148 143890 164011 186598 335669|1m22mIn expression named info1mCaused by error22m33m39m Cant subset columns that dont exist.31m39m Column yearpublished doesnt exist.
-bgg_ids|stem|7de70ec0a44bc1bd|8a1cbd2d2a5446f0|a8bb1e46fec82c8e|-680828799|/Users/Phil/Documents/bgg_data/data/raw/bgg_ids_2023-08-21.csv|t19590.8669391162s|d46938180e7476b9|8891947|file|local|vector|||0.932||
-bigquery_authenticate|function|0483c0a5e1c7ee02|||||||||||||||
-bigquery_connect|function|a1e13730c4441ae6|||||||||||||||
+bgg_ids|stem|2118dbfa1cb3c51a|4889e3e02ff42f7f|ef46db3751d8e999|1554080865|bucket=bgg_data*key=raw/objects/bgg_ids*version=1707336311989030|t19760.8369415637s||446107|rds|gcp|vector|||2.502||
+bigquery_authenticate|function|883ccab50d548218|||||||||||||||
+bigquery_connect|function|e29590ac698c7ce7|||||||||||||||
 bigquery_dataset|function|3a21460438c267c5|||||||||||||||
 bigquery_download_table|function|59b3d9abc8275f08|||||||||||||||
 bigquery_exists|function|97fceda5aeecafa8|||||||||||||||
@@ -61,6 +61,10 @@ game_names|stem|1db595de52c2c6a9|05def225f9051b94|cd0c09af50ac1ae6|807393542||t1
 game_playercounts|stem|a3316ae15deca901|ed8c877aee5fab3b|baaacc458d94ec24|243048631||t19687.7669891641s|908b44727de01e19|1041204|rds|local|vector|||0.737||
 game_publishers|stem|e0a9eaa03dfb18e7|228efe278aa82d1c|2717ea7fa5f9a12d|1425888823||t19687.766563315s|2b3c7428c812c05f|1584500|rds|local|vector|||1.138||
 game_ranks|stem|bad810b4d1929eae|07c2ae4976930bb5|9fed4b0e3ae02593|198448694||t19687.7668453611s|69aa751b2f545c96|796492|rds|local|vector|||0.528||
+games_batch|stem|444b5496d34f4615|398af6d7004ba5a8|c33af6a376e6bcb3|-824638802|bucket=bgg_data*key=raw/objects/games_batch*version=1707404133300277|t19761.6218343489s||77807272|rds|gcp|vector|||0.997||
+gcp_connect|object|da7e5646cbdfced7|||||||||||||||
+gcp_games_api|stem||fed02be9e4ec6106|6ce294a1f464af18|1813937154||t19760.9486093144s||0|file|gcp|vector|||||_build_ target gcp_games_api did not return a character. dynamic files targets with format  file must return character vectors of file or directory paths.
+gcp_raw_games_api|stem|dc30737af4b9597f|3cce94d0bf361e75|48fe5308bfdff00d|-489632677|bucket=bgg_data*key=raw/objects/gcp_raw_games_api*version=1707405334223467|t19761.6358103069s||66|rds|gcp|vector|||196.208||
 gcp_tables|stem|0301ab1c8d29548f|ffb34348806c6e6a|d9df49db23ea8e65|368181666||t19573.6836514202s|6efc4bfe9d27bd5a|46|rds|local|vector|||4.672||
 get_analysis_games|function|a56fe8087fb746e2|||||||||||||||
 get_drop_games|function|4fce77b137c4a3e6|||||||||||||||
@@ -87,9 +91,12 @@ most_recent_ids|stem|2a996e518cacc79e|447b074bcf14146e|ba7a8212531d75c8|15380900
 most_recent_scraped_ids|stem|accdcfacefc7b06f|8a1cbd2d2a5446f0|a8bb1e46fec82c8e|-397530116|/Users/Phil/Documents/bgg_data/data/raw/bgg_ids_2023-09-12.csv|t19612.660250272s|637223963b170f82|8926387|file|local|vector|||1.096||
 pin_bgg_games|stem|88c43ced67b73396|6c4ab1173733d025|6c46b6ecf103c112|-471868073||t19615.7324133415s|e0224cf10db1a05d|62|rds|local|vector|||11.053||
 req_bgg_ids|stem|4e022aa233a162c5|52297cf5185f74ba|417034dd2eeb9e0d|390597680||t19687.6911405545s|ead0aed00a3389ed|302550|rds|local|vector|||0.014||
+req_game_ids|stem|516dcbcda25b8fe1|27a0151dd586a308|000c05aa86a3fb13|1550607159|bucket=bgg_data*key=raw/objects/req_game_ids*version=1707336312472685|t19760.8369484336s||298413|rds|gcp|vector|||0.014||
+resp_game_ids|stem|cadf71b404abc7b3|b77f7f6ad49b8fdc|d76600b38e5ac4c3|1139033057|bucket=bgg_data*key=raw/objects/resp_game_ids*version=1707339456631329|t19760.8732888829s||90486434|rds|gcp|vector|||3125.893|Unknown columns type, id, value. Unknown columns type, id, value. problems with the following game ids 385614. problems with the following game ids 404234. problems with the following game ids 410963 412234|
 scrape_ids|stem|d36ea1299fa8d732|0fcd0486233d5312|c3b5fc02cdc369c1|1214181549||t19573.7847924489s|44e327d1ee1978d7|43|rds|local|vector|||6887.283||
 scraped_bgg_ids|stem|581355bf828aba97|0fcd0486233d5312|c3b5fc02cdc369c1|153606710||t19612.6602723945s|a1c456b03adbfbf8|44|rds|local|vector|||4771.934||
 thing_ids|object|61c47a63f5093e71|||||||||||||||
 thingids|stem|8283c740f8f60539|e0c3047d98b59c46|602ad4639b7a2354|1194873352||t19657.8017704461s|8694840c97eb280f|587|rds|local|vector|||1.754||
 thingids_url|stem||66839ae89b93e8a1|ef46db3751d8e999|998055841|https://bgg.activityclub.org/bggdata/thingids.txt|t19657.7951750703s||0|file|local|vector|||||_paths_ missing files httpsbgg.activityclub.orgbggdatathingids.txt
 unreleased_games|stem|d383004174b4bb50|5eb7625ef15f87de|b93403680df3baaa|1668697698||t19687.7670460406s|d1b6f52315d929dc|2862|rds|local|vector|||1.098||
+write_table|function|e347c455ef362b6b|||||||||||||||

@@ -11,7 +11,6 @@ RUN apt-get update && \
 # environment variables for Google Authentication
 ENV GCS_DEFAULT_BUCKET=bgg_data
 ENV GCS_PROJECT_ID=gcp-demos-411520
-ENV GCS_AUTH_KEY=zoEI5qSv83guzr9ZY170qA
 
 # R packages
 RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"

@@ -7,6 +7,16 @@
 library(targets)
 library(tarchetypes)
 
+# authenticate to googleCloudStorage
+gargle::credentials_service_account(
+        scopes = c("https://www.googleapis.com/auth/devstorage.full_control",
+                   "https://www.googleapis.com/auth/cloud-platform"),
+        path = gargle::secret_decrypt_json(
+                path = ".secrets/gcp_demos",
+                key = 'GCS_AUTH_KEY'
+        )
+)
+
 # packages
 tar_option_set(
         packages = c("dplyr",
@@ -29,7 +39,7 @@ tar_option_set(
 )
 
 # # authenticate to bigquery
-# gcp_connect = 
+# gcp_connect =
 #         bigrquery::bq_auth(
 #                 path = gargle::secret_decrypt_json(
 #                         path = ".secrets/gcp_demos",

@@ -1,4 +1,4 @@
-FROM r-base as base
+FROM rocker/r-base:4.3.1 as base
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -6,7 +6,9 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     libssl-dev \
     libglpk-dev \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/ \
+    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # environment variables for Google Authentication
 ENV GCS_DEFAULT_BUCKET=bgg_data
@@ -30,7 +32,7 @@ ENV RENV_PATHS_CACHE renv/.cache
 # restore 
 RUN R -e "renv::restore()"
 
-FROM r-base
+FROM base
 
 WORKDIR /bgg_data
 COPY --from=base /bgg_data .

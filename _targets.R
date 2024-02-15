@@ -117,21 +117,47 @@ list(
         ),
         # filter to game ids
         tar_target(
-                name = req_game_ids,
+                name = game_ids,
                 command = 
                         bgg_ids |>
-                        filter(type == 'boardgame') |> 
-                        pull(id)
+                        filter(type == 'boardgame')
         ),
-        # submit ids to api in batches
+        # create batches of ids
+        tar_plan(
+                req_game_ids = game_ids$id,
+                batch_numbers = ceiling(seq_along(req_game_ids) / 500)
+        ),
+        # append to ids and add groups
         tar_target(
-                name = resp_game_ids,
-                command =
-                        bggUtils::get_bgg_games(req_game_ids,
+                name = req_game_batches,
+                command = 
+                        game_ids |>
+                        add_column(batch = batch_numbers) %>%
+                        group_by(batch) %>%
+                        tar_group(),
+                iteration = "group"
+        ),
+        # submit these in batches to API
+        tar_target(
+                resp_game_batches,
+                command = 
+                        {
+                                b = req_game_batches %>%
+                                        pull(batch) %>%
+                                        unique()
+                                
+                                message(paste("batch", b, "of", max(batch_numbers)))
+                                
+                                req_game_batches %>%
+                                        pull(id) %>%
+                                        bggUtils::get_bgg_games(
                                                 batch_size = 500,
                                                 simplify = T,
                                                 tidy = T,
-                                                toJSON = F)
+                                                toJSON = F
+                                        )
+                        },
+                pattern = map(req_game_batches)
         ),
         # add in batch id
         tar_target(
@@ -139,8 +165,15 @@ list(
                 command = {
                         batch_timestamp = attr(bgg_ids, "timestamp")
                         
-                        resp_game_ids |>
+                        resp_game_batches |>
                                 unnest(data, keep_empty = F) %>%
+                                select(game_id,
+                                       type,
+                                       info, 
+                                       links, 
+                                       statistics,
+                                       ranks,
+                                       polls) %>%
                                 add_column(
                                         batch_id = rlang::hash(batch_timestamp),
                                         batch_ts = batch_timestamp

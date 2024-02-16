@@ -37,4 +37,5 @@ FROM base
 WORKDIR /bgg_data
 COPY --from=base /bgg_data .
 
-# add commands that need to be debugged below
+# test run of core function to see if it changes
+RUN R -e "bggUtils::get_bgg_games(c(12, 13, 7))"

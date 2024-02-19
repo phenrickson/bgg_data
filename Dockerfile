@@ -6,6 +6,7 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     libssl-dev \
     libglpk-dev \
+    libsodium-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/ \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
@@ -36,5 +37,3 @@ FROM base
 
 WORKDIR /bgg_data
 COPY --from=base /bgg_data .
-
-# add commands that need to be debugged below

@@ -25,7 +25,6 @@ tar_option_set(
                      "pins",
                      "DBI",
                      "bigrquery",
-                     "reticulate",
                      "bggUtils",
                      "googleCloudStorageR",
                      "here"),

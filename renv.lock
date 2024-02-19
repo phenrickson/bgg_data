@@ -4,14 +4,9 @@
     "Repositories": [
       {
         "Name": "CRAN",
-        "URL": "https://cran.rstudio.com"
+        "URL": "https://packagemanager.posit.co/cran/latest"
       }
     ]
-  },
-  "Python": {
-    "Version": "3.9.6",
-    "Type": "virtualenv",
-    "Name": "./renv/python/virtualenvs/renv-python-3.9"
   },
   "Packages": {
     "DBI": {
@@ -99,17 +94,6 @@
       ],
       "Hash": "40d6a1f3bb5905ee998f1d094a320457"
     },
-    "RcppTOML": {
-      "Package": "RcppTOML",
-      "Version": "0.2.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "Rcpp"
-      ],
-      "Hash": "c232938949fcd8126034419cc529333a"
-    },
     "XML": {
       "Package": "XML",
       "Version": "3.99-0.16.1",
@@ -170,7 +154,7 @@
       "RemoteUsername": "phenrickson",
       "RemoteRepo": "bggUtils",
       "RemoteRef": "HEAD",
-      "RemoteSha": "a2b625520410d50a283b4f1755785a3a282047b6",
+      "RemoteSha": "0a8d0efc48ffc8ab082ebe834590af1c52b21868",
       "RemoteHost": "api.github.com",
       "Requirements": [
         "RcppSimdJson",
@@ -193,7 +177,7 @@
         "xml2",
         "zoo"
       ],
-      "Hash": "ea5cefdcd33d22a3d0a36f4e9cb44b6c"
+      "Hash": "d705ffd52ede5254a58af4bbfb5b738a"
     },
     "bigrquery": {
       "Package": "bigrquery",
@@ -1166,16 +1150,6 @@
       ],
       "Hash": "8b65a7a00ef8edc5ddc6fabf0aff1194"
     },
-    "png": {
-      "Package": "png",
-      "Version": "0.1-8",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "bd54ba8a0a5faded999a7aab6e46b374"
-    },
     "prettyunits": {
       "Package": "prettyunits",
       "Version": "1.2.0",
@@ -1304,28 +1278,6 @@
         "utils"
       ],
       "Hash": "41b847654f567341725473431dd0d5ab"
-    },
-    "reticulate": {
-      "Package": "reticulate",
-      "Version": "1.34.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "Matrix",
-        "R",
-        "Rcpp",
-        "RcppTOML",
-        "graphics",
-        "here",
-        "jsonlite",
-        "methods",
-        "png",
-        "rappdirs",
-        "rlang",
-        "utils",
-        "withr"
-      ],
-      "Hash": "a69f815bcba8a055de0b08339b943f9e"
     },
     "rlang": {
       "Package": "rlang",

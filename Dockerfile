@@ -6,6 +6,7 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     libssl-dev \
     libglpk-dev \
+    libsodium-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/ \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
@@ -36,6 +37,3 @@ FROM base
 
 WORKDIR /bgg_data
 COPY --from=base /bgg_data .
-
-# test run of core function to see if it changes
-RUN R -e "bggUtils::get_bgg_games(c(12, 13, 7))"

@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|7357629f410cbe66|||||||||||||||
+.Random.seed|object|5d1ae7869614330b|||||||||||||||
 accessory_ids|stem|615fb2056bf75dd7|ace02ef55e7755a7|dd66244fb6fce4fa|761774728||t19657.7784438835s|4738037710d293a3|21072|rds|local|vector|||0.012||
 analysis_games|stem|9992c8576fee47bb|7b99a590a4e4b7dd|bef2e8c23a3faafd|1194291902||t19687.7667728825s|967bc5bb581e464a|14577019|rds|local|vector|||15.498||
 batch_numbers|stem|53b059592c904522|87d5df31077fd50a|217a51fcf9c6e1e6|-1858935718|bucket=bgg_data*key=raw/objects/batch_numbers*version=1707953338315734|t19767.978450339s||1931|rds|gcp|vector|||0.001||
@@ -62,10 +62,10 @@ game_names|stem|1db595de52c2c6a9|05def225f9051b94|cd0c09af50ac1ae6|807393542||t1
 game_playercounts|stem|a3316ae15deca901|ed8c877aee5fab3b|baaacc458d94ec24|243048631||t19687.7669891641s|908b44727de01e19|1041204|rds|local|vector|||0.737||
 game_publishers|stem|e0a9eaa03dfb18e7|228efe278aa82d1c|2717ea7fa5f9a12d|1425888823||t19687.766563315s|2b3c7428c812c05f|1584500|rds|local|vector|||1.138||
 game_ranks|stem|bad810b4d1929eae|07c2ae4976930bb5|9fed4b0e3ae02593|198448694||t19687.7668453611s|69aa751b2f545c96|796492|rds|local|vector|||0.528||
-games_batch|stem|51f6dae0cb1aee8b|c5c6bf51c7222bb8|9a4c0508dda0bd14|-824638802|bucket=bgg_data*key=raw/objects/games_batch*version=1707960604482870|t19768.0624800097s||74867296|rds|gcp|vector|||1.954||
+games_batch|stem|cb2523eeca9d3394|b8dbbcffb75a8f1c|9a4c0508dda0bd14|-824638802|bucket=bgg_data*key=raw/objects/games_batch*version=1708447965983210|t19773.7032179373s||77935510|rds|gcp|vector|||1.542||
 gcp_connect|object|da7e5646cbdfced7|||||||||||||||
 gcp_games_api|stem||fed02be9e4ec6106|6ce294a1f464af18|1813937154||t19760.9486093144s||0|file|gcp|vector|||||_build_ target gcp_games_api did not return a character. dynamic files targets with format  file must return character vectors of file or directory paths.
-gcp_raw_games_api|stem|dc30737af4b9597f|3cce94d0bf361e75|7cd6d7c86c307ec4|-489632677|bucket=bgg_data*key=raw/objects/gcp_raw_games_api*version=1707960918266492|t19768.0661797235s||66|rds|gcp|vector|||312.507||
+gcp_raw_games_api|stem|dc30737af4b9597f|3cce94d0bf361e75|45758f2fccfff32c|-489632677|bucket=bgg_data*key=raw/objects/gcp_raw_games_api*version=1708448177235448|t19773.7057494799s||66|rds|gcp|vector|||209.609||
 gcp_tables|stem|0301ab1c8d29548f|ffb34348806c6e6a|d9df49db23ea8e65|368181666||t19573.6836514202s|6efc4bfe9d27bd5a|46|rds|local|vector|||4.672||
 get_analysis_games|function|a56fe8087fb746e2|||||||||||||||
 get_drop_games|function|4fce77b137c4a3e6|||||||||||||||

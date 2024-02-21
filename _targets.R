@@ -169,6 +169,7 @@ list(
                                 select(game_id,
                                        type,
                                        info, 
+                                       names,
                                        links, 
                                        statistics,
                                        ranks,

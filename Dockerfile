@@ -19,7 +19,8 @@ ENV GCS_PROJECT_ID=gcp-demos-411520
 RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"
 
 WORKDIR /bgg_data
-COPY renv.lock renv.lock
+# Copy files from the local repository to the container
+COPY . /bgg_data
 
 RUN mkdir -p renv
 COPY .Rprofile .Rprofile
@@ -36,4 +37,4 @@ RUN R -e "renv::restore()"
 FROM base
 
 WORKDIR /bgg_data
-COPY --from=base /bgg_data .
+COPY --from=base /bgg_data .Sys

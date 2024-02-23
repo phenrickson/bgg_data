@@ -1,0 +1,10 @@
+# based on https://github.com/rocker-org/rocker/blob/fc5974d0cd04e4e281323a52251d8976239ea071/r-rspm/focal/Rprofile.site
+local({
+    r <- getOption("repos")
+    cran <- "https://packagemanager.posit.co/cran/__linux__/bookworm/latest"
+    r["CRAN"] <- cran
+    #r["ExamplePrivateRepo"] <- "https://our.co/cran"
+    options(repos = r)
+    options(renv.config.repos.override = r)
+    options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), R.version$platform, R.version$arch, R.version$os)))
+})

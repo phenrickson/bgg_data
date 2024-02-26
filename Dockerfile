@@ -41,3 +41,6 @@ WORKDIR /bgg_data
 COPY --from=base /bgg_data .
 # Copy files from the local repository to the container
 COPY . /bgg_data
+
+# set entrypoint
+ENTRYPOINT ["Rscript"]

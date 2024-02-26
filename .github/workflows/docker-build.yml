@@ -5,7 +5,7 @@ on:
       - dev
   pull_request:
     branches:
-      - dev
+      - main
 jobs:
   build-and-push-to-gcr-service-account:
     name: Build & push - with service account

@@ -1,11 +1,12 @@
-run-name: ${{ github.actor }} is fiddling with renv:
+run-name: ${{ github.actor }} is fiddling with renv
+on:
   push:
     branches: [dev]
   pull_request:
     branches: [dev, main]
 
 name: renv-restore
-
+    
 jobs:
   renv-restore:
     runs-on: ${{ matrix.config.os }}

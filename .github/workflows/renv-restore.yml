@@ -10,6 +10,9 @@ name: renv
 jobs:
   renv-restore:
     runs-on: ubuntu-latest
+    env: 
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GCS_AUTH_FILE: ${{ secrets.GCS_AUTH_FILE }}
     steps:
       - uses: actions/checkout@v4
       - uses: r-lib/actions/setup-r@v2
@@ -27,3 +30,13 @@ jobs:
           sudo apt-get install libglpk-dev 
           sudo apt-get install libsodium-dev 
       - uses: r-lib/actions/setup-renv@v2
+      - name: Install and activate renv
+        shell: Rscript {0}
+        run: |
+          install.packages("renv")
+          renv::activate()
+      - name: Check authentication to GCS
+        shell: Rscript {0}
+        run: |
+          library(googleCloudStorageR)
+      

@@ -30,11 +30,8 @@ jobs:
           sudo apt-get install libglpk-dev 
           sudo apt-get install libsodium-dev 
       - uses: r-lib/actions/setup-renv@v2
-      - name: Check authentication to GCS
-        shell: Rscript {0}
-        run: |
-          library(googleCloudStorageR)
       - name: Check status of targets
         shell: Rscript {0}
         run: |
+          renv::activate()
           targets::tar_meta()

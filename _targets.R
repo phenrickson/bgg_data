@@ -187,5 +187,11 @@ list(
                                         )
                         )
                 }
+        ),
+        # save games as qs
+        tar_target(
+                name = games,
+                command = games_batch,
+                format = "qs"
         )
 )

@@ -1,8 +1,7 @@
+name: renv-restore
 on:
   push:
-    dev
-
-name: renv-restore
+    [dev]
 
 jobs:
   renv-restore:

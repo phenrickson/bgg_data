@@ -4,7 +4,8 @@ on:
     branches: [dev, main]
 
 jobs:
-  build-and-authenticate-gcr:
+  build-and-push-to-gcr-service-account:
+    name: Build & push - with service account
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -13,7 +14,19 @@ jobs:
       GCS_DEFAULT_BUCKET: bgg_data
     steps:
       - uses: actions/checkout@v4
-
-      - uses: google-github-actions/authv2
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
         with:
-            credentials_json: '${{ secrets.GCS_AUTH_FILE }}'
+          credentials_json: '${{ secrets.GCS_AUTH_FILE }}'
+      - name: Building and pushing the image
+        uses: RafikFarhad/push-to-gcr-github-action@v5-rc1
+        with:
+          # gcloud_service_key: ${{ secrets.JSON_GCLOUD_SERVICE_ACCOUNT_JSON }} # <- not needed when used with google-github-actions/auth@v2
+          registry: gcr.io
+          project_id: gcp-demos-411520
+          image_name: bgg_data
+          image_tag: test-${{ github.sha }}, ${{ github.sha }}
+          dockerfile: ./docker/Dockerfile
+          context: ./docker
+          target: build

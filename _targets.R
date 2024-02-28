@@ -8,13 +8,13 @@ library(targets)
 library(tarchetypes)
 
 # authenticate to googleCloudStorage
-gargle::credentials_service_account(
-        scopes = c("https://www.googleapis.com/auth/devstorage.full_control",
-                   "https://www.googleapis.com/auth/cloud-platform"),
-        path = gargle::secret_decrypt_json(
-                path = ".secrets/gcp_demos",
-                key = 'GCS_AUTH_KEY'
-        )
+gcs_conn = 
+googleCloudStorageR::gcs_auth(
+        json =         
+                gargle::secret_decrypt_json(
+                        path = ".secrets/gcp_demos",
+                        key = "GCS_AUTH_KEY"
+                )
 )
 
 # packages
@@ -26,7 +26,7 @@ tar_option_set(
                      "DBI",
                      "bigrquery",
                      "bggUtils",
-                     "googleCloudStorageR",
+                #     "googleCloudStorageR",
                      "here"),
         repository = "gcp",
         resources = tar_resources(
@@ -36,15 +36,6 @@ tar_option_set(
                 )
         )
 )
-
-# # authenticate to bigquery
-# gcp_connect =
-#         bigrquery::bq_auth(
-#                 path = gargle::secret_decrypt_json(
-#                         path = ".secrets/gcp_demos",
-#                         key = 'GCS_AUTH_KEY'
-#                 )
-#         )
 
 # tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
 # in {targets}, and its configuration for your machine is below.
@@ -169,6 +160,7 @@ list(
                                 select(game_id,
                                        type,
                                        info, 
+                                       names,
                                        links, 
                                        statistics,
                                        ranks,
@@ -195,5 +187,11 @@ list(
                                         )
                         )
                 }
+        ),
+        # save games as qs
+        tar_target(
+                name = games,
+                command = games_batch,
+                format = "qs"
         )
 )

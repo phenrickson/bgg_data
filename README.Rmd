@@ -24,6 +24,7 @@ uses [targets](https://github.com/ropensci/targets) package to create pipeline
 
 library(dplyr)
 library(tibble)
+library(qs)
 
 googleCloudStorageR::gcs_auth(
         json_file = Sys.getenv("GCS_AUTH_FILE")
@@ -60,6 +61,7 @@ game_ids %>%
                 .groups = 'drop'
         )
 ```
+
 games retrieved from API:
 
 ```{r responses, echo = F}

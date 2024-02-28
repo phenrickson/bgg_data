@@ -20,7 +20,7 @@ uses [targets](https://github.com/ropensci/targets) package to create pipeline
 
 ## setup
 
-```{r packages}
+```{r packages, remove = F}
 
 library(dplyr)
 library(tibble)

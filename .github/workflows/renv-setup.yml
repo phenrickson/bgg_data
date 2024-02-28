@@ -1,4 +1,4 @@
-run-name: ${{ github.actor }} is fiddling with renv
+run-name: ${{ github.actor }} is setting up renv
 on:
   push:
     branches: [dev]

@@ -6,15 +6,6 @@ output: github_document
 knitr::opts_chunk$set(echo = T)
 ```
 
-
-```{r packages, include = F}
-
-library(googleCloudStorageR)
-library(dplyr)
-library(tibble)
-
-```
-
 # bgg_data
 
 loading historical data from BGG for predictive modeling and analysis
@@ -27,13 +18,28 @@ loading historical data from BGG for predictive modeling and analysis
 
 uses [targets](https://github.com/ropensci/targets) package to create pipeline
 
+## setup
+
+```{r packages}
+
+library(dplyr)
+library(tibble)
+
+googleCloudStorageR::gcs_auth(
+        json_file = Sys.getenv("GCS_AUTH_FILE")
+)
+
+googleCloudStorageR::gcs_global_bucket("bgg_data")
+
+```
+
 ## data
 
 batches of game ids
 
 ```{r, message = F, echo = F}
 
-gcs_list_objects(versions = T) |>
+googleCloudStorageR::gcs_list_objects(versions = T) |>
         filter(name == 'raw/objects/game_ids') %>%
         arrange(desc(updated))
 
@@ -58,7 +64,7 @@ games retrieved from API:
 
 ```{r responses, echo = F}
 
-gcs_list_objects(versions = T) |>
+googleCloudStorageR::gcs_list_objects(versions = T) |>
         filter(name == 'raw/objects/games') %>%
         arrange(desc(updated))
 

@@ -14,6 +14,21 @@ loading historical data from BGG for predictive modeling and analysis
 uses [targets](https://github.com/ropensci/targets) package to create
 pipeline
 
+## setup
+
+``` r
+library(dplyr)
+library(tibble)
+
+googleCloudStorageR::gcs_auth(
+        json_file = Sys.getenv("GCS_AUTH_FILE")
+)
+
+googleCloudStorageR::gcs_global_bucket("bgg_data")
+```
+
+    ## Set default bucket name to 'bgg_data'
+
 ## data
 
 batches of game ids

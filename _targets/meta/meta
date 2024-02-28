@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|4e26e5b881d6ba1f|||||||||||||||
+.Random.seed|object|cc47c06181b7f9c8|||||||||||||||
 accessory_ids|stem|615fb2056bf75dd7|ace02ef55e7755a7|dd66244fb6fce4fa|761774728||t19657.7784438835s|4738037710d293a3|21072|rds|local|vector|||0.012||
 analysis_games|stem|9992c8576fee47bb|7b99a590a4e4b7dd|bef2e8c23a3faafd|1194291902||t19687.7667728825s|967bc5bb581e464a|14577019|rds|local|vector|||15.498||
 batch_numbers|stem|cb0ed7e7c581e529|87d5df31077fd50a|419a7890a314d576|-1858935718|bucket=bgg_data*key=raw/objects/batch_numbers*version=1708703452234172|t19776.660324804s||1935|rds|gcp|vector|||0||
@@ -8,8 +8,8 @@ bgg_games_raw|stem|d13c123e7c33827e|4f6bc50a30dc583c|eabc29032bb09f7a|1549305642
 bgg_games_resp|stem|6d902fdc8ee94eba|20f51ce90efcded7|eda54979c5191865|-1338239676||t19687.7663951338s|1cf622dbd80c698e|76811177|rds|local|vector|||6491.288|problems with the following game ids 1e05. Unknown columns type, id, value. Unknown columns type, id, value|
 bgg_games_second_pass|stem|error|fb5e6523316c67c5|3f8c907d987955e6|-609197007||t19615.5823267233s||44|rds|local|vector|||0.934|Unknown or uninitialised column id.. problems with the following game ids 30148 143890 164011 186598 335669|1m22mIn expression named info1mCaused by error22m33m39m Cant subset columns that dont exist.31m39m Column yearpublished doesnt exist.
 bgg_ids|stem|5276436cb56ea06b|4889e3e02ff42f7f|ef46db3751d8e999|1554080865|bucket=bgg_data*key=raw/objects/bgg_ids*version=1708703451056333|t19776.6603105913s||448291|rds|gcp|vector|||2.324||
-bigquery_authenticate|function|883ccab50d548218|||||||||||||||
-bigquery_connect|function|e29590ac698c7ce7|||||||||||||||
+bigquery_authenticate|function|c22ef4c0aa70dbc9|||||||||||||||
+bigquery_connect|function|3bbee95c662e99a6|||||||||||||||
 bigquery_dataset|function|3a21460438c267c5|||||||||||||||
 bigquery_download_table|function|59b3d9abc8275f08|||||||||||||||
 bigquery_exists|function|97fceda5aeecafa8|||||||||||||||
@@ -66,7 +66,7 @@ games|stem|33eaeb64d1d58977|07377c9c05ef260b|357a154bca63831a|-213367365|bucket=
 games_batch|stem|3edb8f1f0b698fe5|b8dbbcffb75a8f1c|e044cf8de789c87f|-824638802|bucket=bgg_data*key=raw/objects/games_batch*version=1708716604195765|t19776.8125149582s||78170882|rds|gcp|vector|||1.479||
 gcp_connect|object|da7e5646cbdfced7|||||||||||||||
 gcp_games_api|stem||fed02be9e4ec6106|6ce294a1f464af18|1813937154||t19760.9486093144s||0|file|gcp|vector|||||_build_ target gcp_games_api did not return a character. dynamic files targets with format  file must return character vectors of file or directory paths.
-gcp_raw_games_api|stem|dc30737af4b9597f|3cce94d0bf361e75|c1e3b9fed8a22e03|-489632677|bucket=bgg_data*key=raw/objects/gcp_raw_games_api*version=1708716809718582|t19776.814924492s||66|rds|gcp|vector|||203.93||
+gcp_raw_games_api|stem|dc30737af4b9597f|3cce94d0bf361e75|926142ff56809df9|-489632677|bucket=bgg_data*key=raw/objects/gcp_raw_games_api*version=1709147259171856|t19781.7969785937s||66|rds|gcp|vector|||202.673||
 gcp_tables|stem|0301ab1c8d29548f|ffb34348806c6e6a|d9df49db23ea8e65|368181666||t19573.6836514202s|6efc4bfe9d27bd5a|46|rds|local|vector|||4.672||
 gcs_conn|object|9b8090f2cc7c8edf|||||||||||||||
 get_analysis_games|function|a56fe8087fb746e2|||||||||||||||

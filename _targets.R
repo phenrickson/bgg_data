@@ -7,14 +7,14 @@
 library(targets)
 library(tarchetypes)
 
-# authenticate to googleCloudStorage
-gcs_conn = 
+# authenticate to 
 googleCloudStorageR::gcs_auth(
-        json =         
-                gargle::secret_decrypt_json(
-                        path = ".secrets/gcp_demos",
-                        key = "GCS_AUTH_KEY"
-                )
+        json_file = Sys.getenv('GCS_AUTH_FILE')
+)
+
+# set default bucket
+googleCloudStorageR::gcs_global_bucket(
+        Sys.getenv("GCS_DEFAULT_BUCKET")
 )
 
 # packages
@@ -48,14 +48,10 @@ options(clustermq.scheduler = "multicore")
 tar_source(here::here("src", "data", "load_data.R"))
 
 # functions for authenticating to big query
-bigquery_authenticate = function(path = ".secrets/gcp_demos",
-                                 key = "GCS_AUTH_KEY") {
+bigquery_authenticate = function(path = Sys.getenv("GCS_AUTH_FILE")) {
         
         bq_auth(
-                path = gargle::secret_decrypt_json(
-                        path = path,
-                        key = key
-                )
+                path = path
         )
 }
 

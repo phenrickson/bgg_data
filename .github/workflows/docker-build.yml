@@ -17,14 +17,3 @@ jobs:
       - uses: google-github-actions/authv2
         with:
             credentials_json: '${{ secrets.GCS_AUTH_FILE }}'
-
-      - uses: RafikFarhad/push-to-gcr-github-action@v5-rc1
-        with: 
-          gcloud_service_key: ${{ secrets.GCS_AUTH_FILE}}
-          registry: gcr.io
-          project_id: gcp-demos-411520
-          image_name: bgg_data
-          image_tag: test-${{ github.sha }}, ${{ github.sha }}
-          dockerfile: ./docker/Dockerfile
-          context: ./docker
-          target: build

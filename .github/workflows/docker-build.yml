@@ -28,4 +28,4 @@ jobs:
           image_name: bgg_data
           image_tag: test-${{ github.sha }}, ${{ github.sha }}
           dockerfile: ./docker/Dockerfile
-          context: ./docker
+          context: .

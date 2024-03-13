@@ -14,7 +14,7 @@ googleCloudStorageR::gcs_auth(
 
 # set default bucket
 googleCloudStorageR::gcs_global_bucket(
-        Sys.getenv("GCS_DEFAULT_BUCKET")
+        bucket = "bgg_data"
 )
 
 # packages
@@ -56,7 +56,7 @@ bigquery_authenticate = function(path = Sys.getenv("GCS_AUTH_FILE")) {
 }
 
 # establish database connection
-bigquery_connect = function(gcp_project_id = Sys.getenv("GCS_PROJECT_ID"), 
+bigquery_connect = function(gcp_project_id = "gcp-demos-411520", 
                             bq_schema = "bgg",
                             ...) {
         
@@ -134,14 +134,21 @@ list(
                                 
                                 message(paste("batch", b, "of", max(batch_numbers)))
                                 
-                                req_game_batches %>%
-                                        pull(id) %>%
-                                        bggUtils::get_bgg_games(
-                                                batch_size = 500,
-                                                simplify = T,
-                                                tidy = T,
-                                                toJSON = F
-                                        )
+                                Sys.sleep(2)
+                                
+                                # get xml
+                                resp_xml = bggUtils:::get_bgg_games_xml(
+                                        req_game_batches %>% 
+                                                pull(id)
+                                )
+                                
+                                # tidy xml
+                                resp_tidy = bggUtils:::tidy_bgg_data_xml(
+                                        resp_xml
+                                )
+                                
+                                # extract data        
+                                resp_tidy$bgg_games_data
                         },
                 pattern = map(req_game_batches)
         ),
@@ -152,7 +159,6 @@ list(
                         batch_timestamp = attr(bgg_ids, "timestamp")
                         
                         resp_game_batches |>
-                                unnest(data, keep_empty = F) %>%
                                 select(game_id,
                                        type,
                                        info, 

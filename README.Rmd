@@ -20,7 +20,7 @@ uses [targets](https://github.com/ropensci/targets) package to create pipeline
 
 ## setup
 
-```{r packages, remove = F}
+```{r packages, include = F}
 
 library(dplyr)
 library(tibble)
@@ -36,15 +36,17 @@ googleCloudStorageR::gcs_global_bucket("bgg_data")
 
 ## data
 
-batches of game ids
+batches of game ids:
 
 ```{r, message = F, echo = F}
 
 googleCloudStorageR::gcs_list_objects(versions = T) |>
         filter(name == 'raw/objects/game_ids') %>%
-        arrange(desc(updated))
+        arrange(desc(updated)) |>
+        rmarkdown::paged_table()
 
 ```
+
 most recent batch of game ids submitted to API:
 
 ```{r most recent game ids, echo = F}
@@ -61,18 +63,7 @@ game_ids %>%
                 .groups = 'drop'
         )
 ```
-
-games retrieved from API:
-
-```{r responses, echo = F}
-
-googleCloudStorageR::gcs_list_objects(versions = T) |>
-        filter(name == 'raw/objects/games') %>%
-        arrange(desc(updated))
-
-```
-
-most recent batch of games:
+most recent batch of games data loaded to GCS:
 
 ```{r most recent games, message = F, echo = F}
 
@@ -84,3 +75,55 @@ games %>%
 
 ```
 
+new games in most recent batch:
+
+```{r show new games, message = F, echo = F}
+
+games_batch_detail = 
+        googleCloudStorageR::gcs_list_objects(versions = T, detail = "full") |>
+        filter(name == 'raw/objects/games') %>%
+        select(name, bucket, generation, updated) |>
+        arrange(updated)
+
+active_gen = 
+        games_batch_detail |>
+        filter(updated == max(updated)) |>
+        slice_max(updated, n = 1, with_ties = F) |>
+        pull(generation)
+
+prev_gen = 
+        games_batch_detail |>
+        filter(updated != max(updated)) |>
+        slice_max(updated, n = 1, with_ties = F) |>
+        pull(generation)
+
+# load batches of games
+active_batch = 
+        googleCloudStorageR::gcs_get_object(
+                'raw/objects/games',
+                generation = active_gen
+        ) |>
+        qs::qdeserialize()
+
+prev_batch = 
+        googleCloudStorageR::gcs_get_object(
+                'raw/objects/games',
+                generation = prev_gen
+        ) |>
+        qs::qdeserialize()
+
+# show new games
+active_batch |>
+        filter(!(game_id %in% (prev_batch$game_id))) |>
+        mutate(name = purrr::map_chr(names,
+                                     ~ .x |> 
+                                             filter(type == 'primary') |>
+                                             pull(value))
+        ) |>
+        select(game_id, info, name, batch_ts) |>
+        tidyr::unnest(info) |>
+        select(game_id, yearpublished, name, description, batch_ts) |>
+        arrange(desc(yearpublished)) |>
+        rmarkdown::paged_table()
+
+```

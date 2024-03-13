@@ -42,8 +42,7 @@ batches of game ids:
 
 googleCloudStorageR::gcs_list_objects(versions = T) |>
         filter(name == 'raw/objects/game_ids') %>%
-        arrange(desc(updated)) |>
-        rmarkdown::paged_table()
+        arrange(desc(updated))
 
 ```
 
@@ -123,7 +122,6 @@ active_batch |>
         select(game_id, info, name, batch_ts) |>
         tidyr::unnest(info) |>
         select(game_id, yearpublished, name, description, batch_ts) |>
-        arrange(desc(yearpublished)) |>
-        rmarkdown::paged_table()
+        arrange(desc(yearpublished))
 
 ```

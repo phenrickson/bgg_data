@@ -14,8 +14,6 @@ loading historical data from BGG for predictive modeling and analysis
 uses [targets](https://github.com/ropensci/targets) package to create
 pipeline
 
-## setup
-
 ## data
 
 batches of game ids:
@@ -42,17 +40,17 @@ most recent batch of games data loaded to GCS:
 
 new games in most recent batch:
 
-    ## # A tibble: 262 × 5
-    ##    game_id yearpublished name                    description batch_ts           
-    ##      <int>         <int> <chr>                   <chr>       <dttm>             
-    ##  1  415472          2025 Tango                   "It takes … 2024-03-10 15:33:12
-    ##  2  415493          2025 Revamp: the haunted ma… "Revamp is… 2024-03-10 15:33:12
-    ##  3  415524          2025 Super Boss Monster      "After a d… 2024-03-10 15:33:12
-    ##  4  415829          2025 The Dead Keep           "Legends s… 2024-03-10 15:33:12
-    ##  5  415843          2025 Puerto Rico 1897: Spec… "One of th… 2024-03-10 15:33:12
-    ##  6  415845          2025 Grimcoven               "Grimcoven… 2024-03-10 15:33:12
-    ##  7  415848          2025 Lands of Evershade      "Lands of … 2024-03-10 15:33:12
-    ##  8  415885          2025 Napoleon’s Counterstri… "Schwarzen… 2024-03-10 15:33:12
-    ##  9  416079          2025 March of the Ants: Sec… "As spring… 2024-03-10 15:33:12
-    ## 10  416528          2025 Yield                   "The Emper… 2024-03-10 15:33:12
+    ## # A tibble: 262 × 3
+    ##    game_id yearpublished name                             
+    ##      <int>         <int> <chr>                            
+    ##  1  415472          2025 Tango                            
+    ##  2  415493          2025 Revamp: the haunted mansion      
+    ##  3  415524          2025 Super Boss Monster               
+    ##  4  415829          2025 The Dead Keep                    
+    ##  5  415843          2025 Puerto Rico 1897: Special Edition
+    ##  6  415845          2025 Grimcoven                        
+    ##  7  415848          2025 Lands of Evershade               
+    ##  8  415885          2025 Napoleon’s Counterstrike         
+    ##  9  416079          2025 March of the Ants: Second Edition
+    ## 10  416528          2025 Yield                            
     ## # ℹ 252 more rows

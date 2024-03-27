@@ -111,7 +111,7 @@ list(
         # create batches of ids
         tar_plan(
                 req_game_ids = game_ids$id,
-                batch_numbers = ceiling(seq_along(req_game_ids) / 500)
+                batch_numbers = ceiling(seq_along(req_game_ids) / 250)
         ),
         # append to ids and add groups
         tar_target(
@@ -134,7 +134,7 @@ list(
                                 
                                 message(paste("batch", b, "of", max(batch_numbers)))
                                 
-                                Sys.sleep(2)
+                                Sys.sleep(1)
                                 
                                 # get xml
                                 resp_xml = bggUtils:::get_bgg_games_xml(

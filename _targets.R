@@ -9,191 +9,185 @@ library(tarchetypes)
 
 # authenticate to 
 googleCloudStorageR::gcs_auth(
-        json_file = Sys.getenv('GCS_AUTH_FILE')
+    json_file = Sys.getenv('GCS_AUTH_FILE')
 )
 
 # set default bucket
-googleCloudStorageR::gcs_global_bucket(
-        bucket = "bgg_data"
-)
+suppressMessages({googleCloudStorageR::gcs_global_bucket(
+    bucket = "bgg_data"
+)})
 
 # packages
 tar_option_set(
-        packages = c("dplyr",
-                     "tidyr", 
-                     "readr",
-                     "pins",
-                     "DBI",
-                     "bigrquery",
-                     "bggUtils",
-                #     "googleCloudStorageR",
-                     "here"),
-        repository = "gcp",
-        resources = tar_resources(
-                gcp = tar_resources_gcp(
-                        bucket = "bgg_data",
-                        prefix = "raw"
-                )
+    packages = c("dplyr",
+                 "tidyr", 
+                 "readr",
+                 "pins",
+                 "DBI",
+                 "bigrquery",
+                 "bggUtils",
+                 #     "googleCloudStorageR",
+                 "here"),
+    repository = "gcp",
+    resources = tar_resources(
+        gcp = tar_resources_gcp(
+            bucket = "bgg_data",
+            prefix = "raw"
         )
+    )
 )
 
 # tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
 # in {targets}, and its configuration for your machine is below.
 options(clustermq.scheduler = "multicore")
 
-# functions relating to bigquery
-# tar_source(here::here("src", "data", "connect_to_bigquery.R"))
-
-# functions to load data
-tar_source(here::here("src", "data", "load_data.R"))
-
 # functions for authenticating to big query
 bigquery_authenticate = function(path = Sys.getenv("GCS_AUTH_FILE")) {
-        
-        bq_auth(
-                path = path
-        )
+    
+    bq_auth(
+        path = path
+    )
 }
 
 # establish database connection
 bigquery_connect = function(gcp_project_id = "gcp-demos-411520", 
                             bq_schema = "bgg",
                             ...) {
-        
-        bigquery_authenticate(...)
-        
-        bigrquery::dbConnect(
-                bigrquery::bigquery(),
-                project = gcp_project_id,
-                dataset = bq_schema
-        )
-        
+    
+    bigquery_authenticate(...)
+    
+    bigrquery::dbConnect(
+        bigrquery::bigquery(),
+        project = gcp_project_id,
+        dataset = bq_schema
+    )
+    
 }
 
 # function to write table
 write_table = function(name, ...) {
-        
-        message(glue::glue("writing {name}..."))
-        
-        dbWriteTable(
-                ...,
-                name = name
-        )
-        
-        message("done.")
-        name
-        
+    
+    message(glue::glue("writing {name}..."))
+    
+    dbWriteTable(
+        ...,
+        name = name
+    )
+    
+    message("done.")
+    name
+    
 }
 
 
 # targets
 list(
-        # load universe of ids courtesy of https://bgg.activityclub.org/bggdata/
-        tar_target(
-                name = bgg_ids,
-                command = {
-                        tmp = get_bgg_ids()
-                        attr(tmp, "timestamp") <- Sys.time()
-                        tmp
-                },
-                cue = tarchetypes::tar_cue_age(
-                        name = bgg_ids,
-                        age = as.difftime(7, units = "days")
-                )
-        ),
-        # filter to game ids
-        tar_target(
-                name = game_ids,
-                command = 
-                        bgg_ids |>
-                        filter(type == 'boardgame')
-        ),
-        # create batches of ids
-        tar_plan(
-                req_game_ids = game_ids$id,
-                batch_numbers = ceiling(seq_along(req_game_ids) / 250)
-        ),
-        # append to ids and add groups
-        tar_target(
-                name = req_game_batches,
-                command = 
-                        game_ids |>
-                        add_column(batch = batch_numbers) %>%
-                        group_by(batch) %>%
-                        tar_group(),
-                iteration = "group"
-        ),
-        # submit these in batches to API
-        tar_target(
-                resp_game_batches,
-                command = 
-                        {
-                                b = req_game_batches %>%
-                                        pull(batch) %>%
-                                        unique()
-                                
-                                message(paste("batch", b, "of", max(batch_numbers)))
-                                
-                                Sys.sleep(1)
-                                
-                                # get xml
-                                resp_xml = bggUtils:::get_bgg_games_xml(
-                                        req_game_batches %>% 
-                                                pull(id)
-                                )
-                                
-                                # tidy xml
-                                resp_tidy = bggUtils:::tidy_bgg_data_xml(
-                                        resp_xml
-                                )
-                                
-                                # extract data        
-                                resp_tidy$bgg_games_data
-                        },
-                pattern = map(req_game_batches)
-        ),
-        # add in batch id
-        tar_target(
-                name = games_batch,
-                command = {
-                        batch_timestamp = attr(bgg_ids, "timestamp")
-                        
-                        resp_game_batches |>
-                                select(game_id,
-                                       type,
-                                       info, 
-                                       names,
-                                       links, 
-                                       statistics,
-                                       ranks,
-                                       polls) %>%
-                                add_column(
-                                        batch_id = rlang::hash(batch_timestamp),
-                                        batch_ts = batch_timestamp
-                                )
-                }
-        ),
-        # load to bigquery
-        tar_target(
-                name = gcp_raw_games_api,
-                command = {
-                        
-                        # write table
-                        write_table(
-                                bigquery_connect(),
-                                name = "raw_games_api",
-                                append = T,
-                                value = games_batch |>
-                                        add_column(
-                                                load_ts = Sys.time()
-                                        )
-                        )
-                }
-        ),
-        # save games as qs
-        tar_target(
-                name = games,
-                command = games_batch,
-                format = "qs"
+    # load universe of ids courtesy of https://bgg.activityclub.org/bggdata/
+    tar_target(
+        name = bgg_ids,
+        command = {
+            tmp = get_bgg_ids()
+            attr(tmp, "timestamp") <- Sys.time()
+            tmp
+        },
+        cue = tarchetypes::tar_cue_age(
+            name = bgg_ids,
+            age = as.difftime(7, units = "days")
         )
+    ),
+    # filter to game ids
+    tar_target(
+        name = game_ids,
+        command = 
+            bgg_ids |>
+            filter(type == 'boardgame')
+    ),
+    # create batches of ids
+    tar_plan(
+        req_game_ids = game_ids$id,
+        batch_numbers = ceiling(seq_along(req_game_ids) / 250)
+    ),
+    # append to ids and add groups
+    tar_target(
+        name = req_game_batches,
+        command = 
+            game_ids |>
+            add_column(batch = batch_numbers) %>%
+            group_by(batch) %>%
+            tar_group(),
+        iteration = "group"
+    ),
+    # submit these in batches to API
+    tar_target(
+        resp_game_batches,
+        command = 
+            {
+                b = req_game_batches %>%
+                    pull(batch) %>%
+                    unique()
+                
+                message(paste("batch", b, "of", max(batch_numbers)))
+                
+                Sys.sleep(1)
+                
+                # get xml
+                resp_xml = bggUtils:::get_bgg_games_xml(
+                    req_game_batches %>% 
+                        pull(id)
+                )
+                
+                # tidy xml
+                resp_tidy = bggUtils:::tidy_bgg_data_xml(
+                    resp_xml
+                )
+                
+                # extract data        
+                resp_tidy$bgg_games_data
+            },
+        pattern = map(req_game_batches)
+    ),
+    # add in batch id
+    tar_target(
+        name = games_batch,
+        command = {
+            batch_timestamp = attr(bgg_ids, "timestamp")
+            
+            resp_game_batches |>
+                select(game_id,
+                       type,
+                       info, 
+                       names,
+                       links, 
+                       statistics,
+                       ranks,
+                       polls) %>%
+                add_column(
+                    batch_id = rlang::hash(batch_timestamp),
+                    batch_ts = batch_timestamp
+                )
+        }
+    ),
+    # load to bigquery
+    tar_target(
+        name = gcp_raw_games_api,
+        command = {
+            
+            # write table
+            write_table(
+                bigquery_connect(),
+                name = "raw_games_api",
+                append = T,
+                value = games_batch |>
+                    add_column(
+                        load_ts = Sys.time()
+                    )
+            )
+        }
+    ),
+    # save games as qs
+    tar_target(
+        name = games,
+        command = games_batch,
+        format = "qs"
+    )
 )

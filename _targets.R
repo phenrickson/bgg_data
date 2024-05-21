@@ -27,7 +27,8 @@ tar_option_set(
                      "bigrquery",
                      "bggUtils",
                      "here"),
-        repository = "local"
+        repository = "local",
+        memory = "transient"
 )
 
 # tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
@@ -142,6 +143,7 @@ list(
                 command = 
                         games_batch |>
                         get_ranked_games(),
+                format = "qs",
                 repository = "gcp",
                 resources = tar_resources(
                         gcp = tar_resources_gcp(

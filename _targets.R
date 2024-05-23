@@ -8,14 +8,10 @@ library(targets)
 library(tarchetypes)
 
 # authenticate to gcp
-googleCloudStorageR::gcs_auth(
-        json_file = Sys.getenv('GCS_AUTH_FILE')
-)
+googleCloudStorageR::gcs_auth(json_file = Sys.getenv('GCS_AUTH_FILE'))
 
 # set default bucket
-suppressMessages({googleCloudStorageR::gcs_global_bucket(
-        bucket = "bgg_data"
-)})
+suppressMessages({googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")})
 
 # packages
 tar_option_set(
@@ -35,6 +31,7 @@ tar_option_set(
 # in {targets}, and its configuration for your machine is below.
 options(clustermq.scheduler = "multicore")
 
+# functions for api requests
 tar_source("src/data/api.R")
 
 # targets

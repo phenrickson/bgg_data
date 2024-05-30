@@ -53,3 +53,9 @@ data/
 !src/data/
 !src/models/
 !data/processed
+
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
+
+# ignore html version of readme
+README.html

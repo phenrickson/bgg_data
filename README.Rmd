@@ -6,15 +6,6 @@ output: github_document
 knitr::opts_chunk$set(echo = T)
 ```
 
-
-```{r packages, include = F}
-
-library(googleCloudStorageR)
-library(dplyr)
-library(tibble)
-
-```
-
 # bgg_data
 
 loading historical data from BGG for predictive modeling and analysis
@@ -27,52 +18,51 @@ loading historical data from BGG for predictive modeling and analysis
 
 uses [targets](https://github.com/ropensci/targets) package to create pipeline
 
+```{r packages, include = F}
+
+library(dplyr)
+library(tibble)
+library(qs)
+
+# set scopes for authentication
+googleCloudStorageR:::set_scopes()
+# authenticate via encrypted json
+googleCloudStorageR::gcs_auth(
+        json_file = 
+                gargle::secret_decrypt_json(
+                        path = ".secrets/gcp-demos",
+                        key = "GCS_AUTH_KEY"
+                )
+)
+
+# set bucket
+googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")
+
+options(dplyr.print_max = 1e9)
+
+```
+
+## pipeline
+
+```{r, message = F, results = "asis", echo = F}
+
+cat(c("```mermaid", targets::tar_mermaid(), "```"), sep = "\n")
+
+```
+
+
 ## data
 
-batches of game ids
+batches of games requested from API
 
-```{r, message = F, echo = F}
+```{r message = F}
 
-gcs_list_objects(versions = T) |>
-        filter(name == 'raw/objects/game_ids') %>%
+games_objs = 
+        googleCloudStorageR::gcs_list_objects(versions = T, detail ='full') |>
+        filter(name == 'raw/objects/games') |>
+        select(name, bucket, generation, size, updated)
+
+games_objs |>
         arrange(desc(updated))
 
 ```
-most recent batch of game ids submitted to API:
-
-```{r most recent game ids, echo = F}
-
-game_ids = targets::tar_read("game_ids")
-
-batch_ts = attr(game_ids, "timestamp")
-
-game_ids %>%
-        add_column(batch_ts) %>%
-        group_by(batch_ts, type) %>%
-        summarize(
-                n = n_distinct(id),
-                .groups = 'drop'
-        )
-```
-games retrieved from API:
-
-```{r responses, echo = F}
-
-gcs_list_objects(versions = T) |>
-        filter(name == 'raw/objects/games') %>%
-        arrange(desc(updated))
-
-```
-
-most recent batch of games:
-
-```{r most recent games, message = F, echo = F}
-
-games = targets::tar_read("games")
-
-games %>% 
-        group_by(batch_ts, type) %>% 
-        summarize(n = n_distinct(game_id), .groups = 'drop')
-
-```
-

@@ -7,15 +7,11 @@
 library(targets)
 library(tarchetypes)
 
-# authenticate to googleCloudStorage
-gcs_conn = 
-googleCloudStorageR::gcs_auth(
-        json =         
-                gargle::secret_decrypt_json(
-                        path = ".secrets/gcp_demos",
-                        key = "GCS_AUTH_KEY"
-                )
-)
+# authenticate to gcp
+googleCloudStorageR::gcs_auth(json_file = Sys.getenv('GCS_AUTH_FILE'))
+
+# set default bucket
+suppressMessages({googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")})
 
 # packages
 tar_option_set(
@@ -26,69 +22,17 @@ tar_option_set(
                      "DBI",
                      "bigrquery",
                      "bggUtils",
-                #     "googleCloudStorageR",
                      "here"),
-        repository = "gcp",
-        resources = tar_resources(
-                gcp = tar_resources_gcp(
-                        bucket = "bgg_data",
-                        prefix = "raw"
-                )
-        )
+        repository = "local",
+        memory = "transient"
 )
 
 # tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
 # in {targets}, and its configuration for your machine is below.
 options(clustermq.scheduler = "multicore")
 
-# functions relating to bigquery
-# tar_source(here::here("src", "data", "connect_to_bigquery.R"))
-
-# functions to load data
-tar_source(here::here("src", "data", "load_data.R"))
-
-# functions for authenticating to big query
-bigquery_authenticate = function(path = ".secrets/gcp_demos",
-                                 key = "GCS_AUTH_KEY") {
-        
-        bq_auth(
-                path = gargle::secret_decrypt_json(
-                        path = path,
-                        key = key
-                )
-        )
-}
-
-# establish database connection
-bigquery_connect = function(gcp_project_id = Sys.getenv("GCS_PROJECT_ID"), 
-                            bq_schema = "bgg",
-                            ...) {
-        
-        bigquery_authenticate(...)
-        
-        bigrquery::dbConnect(
-                bigrquery::bigquery(),
-                project = gcp_project_id,
-                dataset = bq_schema
-        )
-        
-}
-
-# function to write table
-write_table = function(name, ...) {
-        
-        message(glue::glue("writing {name}..."))
-        
-        dbWriteTable(
-                ...,
-                name = name
-        )
-        
-        message("done.")
-        name
-        
-}
-
+# functions for api requests
+tar_source("src/data/api.R")
 
 # targets
 list(
@@ -96,7 +40,7 @@ list(
         tar_target(
                 name = bgg_ids,
                 command = {
-                        tmp = get_bgg_ids()
+                        tmp = bggUtils::get_bgg_ids()
                         attr(tmp, "timestamp") <- Sys.time()
                         tmp
                 },
@@ -112,10 +56,14 @@ list(
                         bgg_ids |>
                         filter(type == 'boardgame')
         ),
-        # create batches of ids
-        tar_plan(
-                req_game_ids = game_ids$id,
-                batch_numbers = ceiling(seq_along(req_game_ids) / 500)
+        # create batches
+        tar_target(
+                name = batch_numbers,
+                command = 
+                        game_ids$id %>%
+                        create_batches(
+                                size = 500
+                        )
         ),
         # append to ids and add groups
         tar_target(
@@ -131,22 +79,8 @@ list(
         tar_target(
                 resp_game_batches,
                 command = 
-                        {
-                                b = req_game_batches %>%
-                                        pull(batch) %>%
-                                        unique()
-                                
-                                message(paste("batch", b, "of", max(batch_numbers)))
-                                
-                                req_game_batches %>%
-                                        pull(id) %>%
-                                        bggUtils::get_bgg_games(
-                                                batch_size = 500,
-                                                simplify = T,
-                                                tidy = T,
-                                                toJSON = F
-                                        )
-                        },
+                        req_game_batches |>
+                        request_batch(),
                 pattern = map(req_game_batches)
         ),
         # add in batch id
@@ -156,7 +90,6 @@ list(
                         batch_timestamp = attr(bgg_ids, "timestamp")
                         
                         resp_game_batches |>
-                                unnest(data, keep_empty = F) %>%
                                 select(game_id,
                                        type,
                                        info, 
@@ -175,7 +108,7 @@ list(
         tar_target(
                 name = gcp_raw_games_api,
                 command = {
-                        
+
                         # write table
                         write_table(
                                 bigquery_connect(),
@@ -188,10 +121,32 @@ list(
                         )
                 }
         ),
-        # save games as qs
+        # save games object in bucket
         tar_target(
                 name = games,
                 command = games_batch,
-                format = "qs"
+                format = "qs",
+                repository = "gcp",
+                resources = tar_resources(
+                        gcp = tar_resources_gcp(
+                                bucket = "bgg_data",
+                                prefix = "raw"
+                        )
+                )
+        ),
+        # save games that have a geek rating
+        tar_target(
+                name = ranked_games,
+                command = 
+                        games_batch |>
+                        get_ranked_games(),
+                format = "qs",
+                repository = "gcp",
+                resources = tar_resources(
+                        gcp = tar_resources_gcp(
+                                bucket = "bgg_data",
+                                prefix = "raw"
+                        )
+                )
         )
 )

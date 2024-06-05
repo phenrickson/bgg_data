@@ -80,7 +80,7 @@ list(
                 resp_game_batches,
                 command = 
                         req_game_batches |>
-                        request_batch(),
+                        request_batch(max_tries = 10),
                 pattern = map(req_game_batches)
         ),
         # add in batch id

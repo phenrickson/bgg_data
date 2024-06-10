@@ -38,8 +38,6 @@ googleCloudStorageR::gcs_auth(
 # set bucket
 googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")
 
-options(dplyr.print_max = 1e9)
-
 ```
 
 ## pipeline
@@ -58,7 +56,7 @@ batches of games requested from API
 ```{r message = F}
 
 games_objs = 
-        googleCloudStorageR::gcs_list_objects(versions = T, detail ='full') |>
+        googleCloudStorageR::gcs_list_objects(detail ='full') |>
         filter(name == 'raw/objects/games') |>
         select(name, bucket, generation, size, updated)
 

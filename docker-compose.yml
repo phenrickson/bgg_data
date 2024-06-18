@@ -1,0 +1,11 @@
+version: '3'
+services:
+  base:
+    # will build ./docker/web/Dockerfile
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+  targets:
+    # will build ./docker/db/Dockerfile
+    build:
+      dockerfile: ./docker/targets/Dockerfile

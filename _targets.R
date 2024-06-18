@@ -148,5 +148,10 @@ list(
                                 prefix = "raw"
                         )
                 )
+        ),
+        tar_render(
+                readme,
+                "README.Rmd",
+                params = list(run = gcp_raw_games_api)
         )
 )

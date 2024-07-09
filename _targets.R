@@ -62,7 +62,7 @@ list(
                 command = 
                         game_ids$id %>%
                         create_batches(
-                                size = 500
+                                size = 100
                         )
         ),
         # append to ids and add groups
@@ -152,6 +152,6 @@ list(
         tar_render(
                 readme,
                 "README.Rmd",
-                params = list(run = gcp_raw_games_api)
+                cue = tar_cue(mode = 'always')
         )
 )

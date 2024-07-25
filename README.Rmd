@@ -23,6 +23,7 @@ uses [targets](https://github.com/ropensci/targets) package to create pipeline
 library(dplyr)
 library(tibble)
 library(qs)
+library(googleCloudStorageR)
 
 # set scopes for authentication
 googleCloudStorageR:::set_scopes()
@@ -34,6 +35,9 @@ googleCloudStorageR::gcs_auth(
                         key = "GCS_AUTH_KEY"
                 )
 )
+
+# load most recent bggs
+tar_load(games_batch)
 
 # set bucket
 googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")
@@ -56,11 +60,37 @@ batches of games requested from API
 ```{r message = F}
 
 games_objs = 
-        googleCloudStorageR::gcs_list_objects(detail ='full') |>
+        googleCloudStorageR::gcs_list_objects(prefix = "raw/objects/games", versions = T, detail = "full") |>
         filter(name == 'raw/objects/games') |>
-        select(name, bucket, generation, size, updated)
+        select(bucket, name, generation, size, updated)
 
 games_objs |>
-        arrange(desc(updated))
+        arrange(desc(updated)) |>
+        knitr::kable(format = "markdown")
 
 ```
+
+```{r message = F}
+
+# get last two generations
+gens =
+        games_objs |>
+        arrange(desc(updated)) |>
+        head(2) |>
+        pull(generation)
+
+# most recent gen
+active_games = gcs_get_object("raw/objects/games", generation = gens[1]) |> qs::qdeserialize()
+previous_games = gcs_get_object("raw/objects/games", generation = gens[2]) |> qs::qdeserialize()
+
+# find games only in most recent batch
+active_games |>
+        anti_join(
+                previous_games |>
+                        select(game_id)
+        ) |>
+        bggUtils:::unnest_info() |>
+        select(game_id, name, yearpublished) |>
+        knitr::kable(format = "markdown")
+```
+

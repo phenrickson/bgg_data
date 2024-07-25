@@ -62,7 +62,7 @@ list(
                 command = 
                         game_ids$id %>%
                         create_batches(
-                                size = 100
+                                size = 20
                         )
         ),
         # append to ids and add groups

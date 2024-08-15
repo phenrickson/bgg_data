@@ -6,6 +6,7 @@
 # required package for targets
 library(targets)
 library(tarchetypes)
+library(crew)
 
 # authenticate to gcp
 googleCloudStorageR::gcs_auth(json_file = Sys.getenv('GCS_AUTH_FILE'))
@@ -24,7 +25,13 @@ tar_option_set(
                      "bggUtils",
                      "here"),
         repository = "local",
-        memory = "transient"
+        memory = "transient",
+        resources = tar_resources(
+                gcp = tar_resources_gcp(
+                        bucket = "bgg_data",
+                        prefix = "raw"
+                )
+        )
 )
 
 # tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
@@ -33,6 +40,11 @@ options(clustermq.scheduler = "multicore")
 
 # functions for api requests
 tar_source("src/data/api.R")
+
+# set workers for crew
+tar_option_set(
+        controller = crew_controller_local(workers = 4)
+)
 
 # targets
 list(
@@ -126,13 +138,7 @@ list(
                 name = games,
                 command = games_batch,
                 format = "qs",
-                repository = "gcp",
-                resources = tar_resources(
-                        gcp = tar_resources_gcp(
-                                bucket = "bgg_data",
-                                prefix = "raw"
-                        )
-                )
+                repository = "gcp"
         ),
         # save games that have a geek rating
         tar_target(
@@ -141,13 +147,7 @@ list(
                         games_batch |>
                         get_ranked_games(),
                 format = "qs",
-                repository = "gcp",
-                resources = tar_resources(
-                        gcp = tar_resources_gcp(
-                                bucket = "bgg_data",
-                                prefix = "raw"
-                        )
-                )
+                repository = "gcp"
         ),
         tar_render(
                 readme,

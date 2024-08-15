@@ -49,7 +49,7 @@ request_bgg_api = function(game_ids, max_tries = 5) {
         resp <-
                 req %>%
                 # throttle rate of request
-                req_throttle(15 / 60) %>%
+                req_throttle(5 / 60) %>%
                 # set policies for retry
                 req_retry(
                         max_tries = max_tries

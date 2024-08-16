@@ -16,8 +16,6 @@ pipeline
 
 ## pipeline
 
-- The project is out-of-sync – use `renv::status()` for details.
-
 ``` mermaid
 graph LR
   style Legend fill:#FFFFFF00,stroke:#000000;

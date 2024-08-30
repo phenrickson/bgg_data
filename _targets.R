@@ -84,7 +84,7 @@ list(
                         game_ids |>
                         add_column(batch = batch_numbers) %>%
                         group_by(batch) %>%
-                        tar_group(),
+                        targets::tar_group(),
                 iteration = "group"
         ),
         # submit these in batches to API

@@ -91,6 +91,7 @@ active_games |>
         ) |>
         bggUtils:::unnest_info() |>
         select(game_id, name, yearpublished) |>
+        arrange(desc(yearpublished)) |>
         knitr::kable(format = "markdown")
 ```
 

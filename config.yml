@@ -1,0 +1,7 @@
+default:
+        prefix: "dev"
+        schema: "dev"
+        
+main:
+        prefix: "raw"
+        schema: "raw"

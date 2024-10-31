@@ -78,6 +78,7 @@ games_objs |>
 
 | bucket   | name              | generation       | size    | updated             |
 |:---------|:------------------|:-----------------|:--------|:--------------------|
+| bgg_data | raw/objects/games | 1728676924892464 | 71.5 Mb | 2024-10-11 20:02:04 |
 | bgg_data | raw/objects/games | 1726869993009335 | 71.2 Mb | 2024-09-20 22:06:33 |
 | bgg_data | raw/objects/games | 1724967426023865 | 70.9 Mb | 2024-08-29 21:37:06 |
 | bgg_data | raw/objects/games | 1723671710966893 | 70.8 Mb | 2024-08-14 21:41:51 |
@@ -123,421 +124,360 @@ active_games |>
 
 | game_id | name | yearpublished |
 |---:|:---|---:|
-| 428791 | Dope | 2026 |
-| 428993 | Peking: 55 Days Of Fury | 2026 |
-| 429033 | Bardsung: Tale of the Forsaken Glade | 2026 |
-| 405811 | Far Far West | 2025 |
-| 426651 | Ibyron: Island of Discovery 2nd Edition | 2025 |
-| 427667 | Delivery Witches | 2025 |
-| 427671 | Mighty Shot! | 2025 |
-| 427788 | Rébus Mix | 2025 |
-| 427800 | Pitch Out: Under Vs Aquilies | 2025 |
-| 427828 | CATS & DRAGONS | 2025 |
-| 427830 | Hantise | 2025 |
-| 427831 | Fools’ Fuel | 2025 |
-| 427840 | Free Solo | 2025 |
-| 427886 | Fossilium | 2025 |
-| 427942 | Stack O’ Cats | 2025 |
-| 427989 | Escaping Reality | 2025 |
-| 428018 | STASH Card Game | 2025 |
-| 428022 | Hubble Run | 2025 |
-| 428024 | River Rats | 2025 |
-| 428080 | Big Spender | 2025 |
-| 428099 | Revenant | 2025 |
-| 428113 | Legends Odyssey | 2025 |
-| 428127 | Galen’s Games Mint Tin Series | 2025 |
-| 428148 | Pixie Trails | 2025 |
-| 428149 | Bunker Down! | 2025 |
-| 428150 | Rescate Animal | 2025 |
-| 428196 | That’s my cat | 2025 |
-| 428231 | Pulitzer | 2025 |
-| 428241 | Dragonlings | 2025 |
-| 428244 | DC Deck-Building Game: Arkham Asylum | 2025 |
-| 428264 | 1899 DAIHAN | 2025 |
-| 428280 | The G.O.A.T. | 2025 |
-| 428282 | TimemiT | 2025 |
-| 428284 | Here Lies | 2025 |
-| 428296 | Holiday Hijinks \#10: The Leprechaun Larceny | 2025 |
-| 428297 | Holiday Hijinks \#11: The New Year Nightmare | 2025 |
-| 428298 | Holiday Hijinks \#12: The Krampus Caper | 2025 |
-| 428308 | Unmatched: Muhammad Ali vs Bruce Lee | 2025 |
-| 428351 | Yomi 2: Road to Morningstar | 2025 |
-| 428359 | Roborover 2077: Last Hope | 2025 |
-| 428423 | War of the Arcane | 2025 |
-| 428440 | Shallow Sea | 2025 |
-| 428441 | Terra Del Mar | 2025 |
-| 428443 | Stax: Galaxy | 2025 |
-| 428451 | The Wise Investor | 2025 |
-| 428529 | Breakthrough Russia | 2025 |
-| 428537 | Through the Zoo | 2025 |
-| 428538 | Zoo and More | 2025 |
-| 428540 | Skybirds | 2025 |
-| 428580 | BRUTUS! | 2025 |
-| 428582 | Dark Tomb: The Ice Chasers | 2025 |
-| 428586 | Wild Side | 2025 |
-| 428589 | Thief’s Market | 2025 |
-| 428619 | Dungeons & Dragons: Builders of Baldur’s Gate | 2025 |
-| 428629 | Goblin Party | 2025 |
-| 428635 | Ruins | 2025 |
-| 428636 | Oddland | 2025 |
-| 428664 | Fantasy Realms: Greek Legends | 2025 |
-| 428709 | CLANS | 2025 |
-| 428717 | Huddle: The Fantasy Football Game | 2025 |
-| 428721 | Echo Team: Spearhead | 2025 |
-| 428735 | Unvention | 2025 |
-| 428758 | Big Fish Card Game | 2025 |
-| 428776 | Pirate King! | 2025 |
-| 428787 | Presages | 2025 |
-| 428792 | Common Earth | 2025 |
-| 428827 | Sinking Yamato | 2025 |
-| 428845 | Crisis 1962 | 2025 |
-| 428848 | Legions of Kadmon | 2025 |
-| 428908 | San Juan: The Card Game | 2025 |
-| 428934 | Combat! Volume 4: Eastern Front | 2025 |
-| 428939 | Pompeii | 2025 |
-| 428992 | Dark Heists | 2025 |
-| 429114 | Nova Era | 2025 |
-| 429123 | Last Aurora: Frostlands | 2025 |
-| 429130 | Invincible: The Card Game | 2025 |
-| 429152 | Twilight Struggle: 20th Anniversary Hall of Fame Edition | 2025 |
-| 425263 | ExCowl | 2024 |
-| 427235 | 大行列 (Big Queue) | 2024 |
-| 427269 | Pfad der Elemente | 2024 |
-| 427278 | Roaring 20s | 2024 |
-| 427336 | Banana Boy VS Uni-Cone | 2024 |
-| 427584 | We Forlorn Few | 2024 |
-| 427593 | Hive Ultimate | 2024 |
-| 427646 | Indovina Burqi | 2024 |
-| 427736 | The Atomic Builders | 2024 |
-| 427737 | Mythoria: Clash of Legends | 2024 |
-| 427738 | Shadow & Blade | 2024 |
-| 427739 | Flucht aus Munich | 2024 |
-| 427773 | Eternal Mist: Cursed of the Forsaken Forest | 2024 |
-| 427787 | Murdle | 2024 |
-| 427795 | Crowns & Consequences | 2024 |
-| 427797 | Chemistry Set | 2024 |
-| 427799 | Top Secret: Briefs | 2024 |
-| 427807 | hololive: Official Card Game | 2024 |
-| 427810 | Dixit Universe Access+ | 2024 |
-| 427811 | Dungeon Up | 2024 |
-| 427841 | Boulder Bluff | 2024 |
-| 427865 | Souvenirs from Venice | 2024 |
-| 427866 | Deep Sea Adventure Boost | 2024 |
-| 427870 | Awaken the Ancients | 2024 |
-| 427880 | turtles | 2024 |
-| 427887 | Castle Builder | 2024 |
-| 427894 | Expedition: Beyond | 2024 |
-| 427899 | HandQuest: in-hand dungeon crawler | 2024 |
-| 427900 | NINE | 2024 |
-| 427904 | Hot Pot Holic | 2024 |
-| 427907 | Gimbap | 2024 |
-| 427908 | Zeta: Survival | 2024 |
-| 427909 | Hello! Tea Time | 2024 |
-| 427943 | Oganika Arcanum: Hex 16 | 2024 |
-| 427944 | Making Honey Hunny | 2024 |
-| 427957 | CORSAIR: DoTin Bay | 2024 |
-| 428009 | Grave Keeper: A Victorian Roll & Write Game | 2024 |
-| 428014 | Soulshards: Broken Alliance | 2024 |
-| 428015 | Crimson Keep | 2024 |
-| 428019 | Scrabble / Scrabble Together | 2024 |
-| 428027 | Trouble at Hand | 2024 |
-| 428029 | Doodle Puzzle | 2024 |
-| 428030 | UNO Teams! | 2024 |
-| 428031 | Let’s Go! To Japan: Matsuri Edition | 2024 |
-| 428032 | 1789 | 2024 |
-| 428055 | Football Feud! | 2024 |
-| 428057 | Anno Domini: Eco | 2024 |
-| 428058 | Up or Down? | 2024 |
-| 428060 | Front Line: Strategy Edition | 2024 |
-| 428061 | Stand or Starve | 2024 |
-| 428062 | Camargue | 2024 |
-| 428075 | レリック・レイダース：激流! – 大いなるビーストレリック(Relic Raiders: Raging Rapids! – The Great Beast Relic) | 2024 |
-| 428076 | Kidnapping | 2024 |
-| 428077 | Sideral: Fusão Galáctica | 2024 |
-| 428081 | Quítate eso | 2024 |
-| 428082 | Enlightened | 2024 |
-| 428083 | Fil Rouge: En Chacun de Nous | 2024 |
-| 428085 | In Extremis | 2024 |
-| 428089 | Ghosts Can’t Draw | 2024 |
-| 428094 | Uskoci: A Card Game about Croatian Pirates | 2024 |
-| 428098 | Gliss | 2024 |
-| 428100 | Back Whence Ye Came! | 2024 |
-| 428104 | Wiki Histories | 2024 |
-| 428106 | Catfé | 2024 |
-| 428108 | Clash Of Steel: Tabletop Tank Battles | 2024 |
-| 428109 | COINS: Whales | 2024 |
-| 428114 | Soularis | 2024 |
-| 428116 | TAROTUNA | 2024 |
-| 428117 | Birdy Call | 2024 |
-| 428123 | Pears | 2024 |
-| 428140 | Holiday Rollout | 2024 |
-| 428147 | Dragon vs. Kingdom | 2024 |
-| 428151 | Whiskers AND Fins | 2024 |
-| 428162 | Jogo Exploradores | 2024 |
-| 428175 | Rate My Friends | 2024 |
-| 428180 | SWOOP Card Game | 2024 |
-| 428182 | Asterix & Compagnie | 2024 |
-| 428185 | Vestiges of the Ancients | 2024 |
-| 428191 | Seven Merry Monsters | 2024 |
-| 428194 | Amalfi: Repubblica Marinara | 2024 |
-| 428195 | BONO: The Numbers | 2024 |
-| 428198 | Ice Hike: Beware of the Bears | 2024 |
-| 428208 | The Keys to Happiness | 2024 |
-| 428224 | 1 A.M. Jailbreak | 2024 |
-| 428225 | CHEF! The Most Un-Balanced Card Game | 2024 |
-| 428226 | O-Zone | 2024 |
-| 428234 | La Ruina | 2024 |
-| 428238 | Blizzard Blitz | 2024 |
-| 428254 | Game of Gods | 2024 |
-| 428256 | Centerpede | 2024 |
-| 428257 | Sandpile Panic | 2024 |
-| 428266 | A Tour of the Realm | 2024 |
-| 428268 | Pariahs | 2024 |
-| 428269 | Mumusok | 2024 |
-| 428270 | Suspects Pocket: Hors-Jeu à Liverpool | 2024 |
-| 428271 | Suspects Pocket: La Disparition du Pr. Fairchild | 2024 |
-| 428279 | Trails of Tucana with Ferry Expansion | 2024 |
-| 428281 | Keepsake | 2024 |
-| 428283 | Monopoly: Wicked | 2024 |
-| 428287 | Murder at Midnight | 2024 |
-| 428288 | The Rock of Chickamauga | 2024 |
-| 428294 | Draught Trick | 2024 |
-| 428299 | Pantheon: A Deck Builder | 2024 |
-| 428315 | Gangs of Rome | 2024 |
-| 428317 | KADO | 2024 |
-| 428319 | Capybara Cookie Club | 2024 |
-| 428320 | Auf ein Wort! | 2024 |
-| 428321 | Hexen Cocktail | 2024 |
-| 428322 | Locus | 2024 |
-| 428324 | Ninja Lite: Stealth & Tactics | 2024 |
-| 428330 | Die!geon | 2024 |
-| 428331 | In Memory Of | 2024 |
-| 428336 | Bebê Diabo | 2024 |
-| 428337 | Into the Pumpkin Patch We Go | 2024 |
-| 428338 | Máquina dos Sonhos | 2024 |
-| 428348 | The Best Medicine | 2024 |
-| 428350 | Cocô, o Jogo | 2024 |
-| 428352 | JAZZ | 2024 |
-| 428353 | Ramen Extreme | 2024 |
-| 428357 | Melissa Math | 2024 |
-| 428361 | Don’t Flock Up | 2024 |
-| 428363 | Blütentanz | 2024 |
-| 428365 | Chaosphere: Black Hole | 2024 |
-| 428366 | Operation Biting | 2024 |
-| 428369 | Faith Battle | 2024 |
-| 428376 | Cerro Gordo Silver Mines | 2024 |
-| 428377 | Bastille | 2024 |
-| 428381 | Vast Cosmos | 2024 |
-| 428383 | Zama | 2024 |
-| 428384 | Shapes of Play: Battle | 2024 |
-| 428389 | Pocket Puffins | 2024 |
-| 428393 | Survival: Scandinavia | 2024 |
-| 428399 | Battlegroup: Bagration | 2024 |
-| 428404 | Vita Luna | 2024 |
-| 428419 | The Ants & The Grasshopper | 2024 |
-| 428425 | Tricky Dragons | 2024 |
-| 428429 | Draft’d | 2024 |
-| 428431 | Traitor Tots | 2024 |
-| 428444 | TROVE | 2024 |
-| 428445 | Biscuits | 2024 |
-| 428447 | Marimic: The Musical Time Machine | 2024 |
-| 428449 | Warhammer Age of Sigmar: Beginner Set | 2024 |
-| 428453 | Story Box: Polar | 2024 |
-| 428457 | Refuge | 2024 |
-| 428469 | Bloodline Leyend | 2024 |
-| 428477 | Friends ‘n’ Foes | 2024 |
-| 428479 | Charidice | 2024 |
-| 428480 | Montrose Triumphs: The Battles of Auldearn and Alford, 1645 | 2024 |
-| 428482 | The Tortoise & The Hare | 2024 |
-| 428487 | Arctic Armies | 2024 |
-| 428488 | BUM i BRUM: Rajd Malucha | 2024 |
-| 428498 | Brain Line | 2024 |
-| 428505 | Endgame: The Final Battle | 2024 |
-| 428514 | Game of Traits | 2024 |
-| 428515 | Varia: Angel vs. Demon | 2024 |
-| 428518 | Snakers | 2024 |
-| 428535 | Monopoly GO! | 2024 |
-| 428539 | Dreidel Dash | 2024 |
-| 428542 | Krampusnacht | 2024 |
-| 428545 | Frog Pull | 2024 |
-| 428556 | Farms Race: Deluxe Edition | 2024 |
-| 428559 | Creature Caravan: Deluxe Edition | 2024 |
-| 428560 | The 4 Elements | 2024 |
-| 428573 | Time of War | 2024 |
-| 428577 | Ananda | 2024 |
-| 428578 | Die Trödler aus den Highlands | 2024 |
-| 428579 | Beasty Bar: Down Under | 2024 |
-| 428585 | Four Suit Dungeon Delve | 2024 |
-| 428587 | Gestrudis | 2024 |
-| 428588 | Circle of Friends: The Game | 2024 |
-| 428590 | Hello | 2024 |
-| 428603 | Match’n Lock! | 2024 |
-| 428618 | Marcha Zombie | 2024 |
-| 428621 | Respawn and Rumble | 2024 |
-| 428622 | Book Surfers | 2024 |
-| 428623 | Zachraň poklad | 2024 |
-| 428626 | Mud & Blood | 2024 |
-| 428628 | Drachentreppe | 2024 |
-| 428630 | Wippe-lig! | 2024 |
-| 428639 | Giraffe Raffe | 2024 |
-| 428679 | Świętuj z Portalem | 2024 |
-| 428682 | GROW SKY | 2024 |
-| 428684 | Danger the Game: Whack a Moley | 2024 |
-| 428691 | Cats and Caverns | 2024 |
-| 428692 | Space Investors | 2024 |
-| 428693 | Imwah | 2024 |
-| 428696 | Rome Must Fall | 2024 |
-| 428701 | Rafa koralowa | 2024 |
-| 428707 | A Hard Day’s Work: The Battle of Droop Mountain, November 6, 1863 | 2024 |
-| 428724 | SPIEKEROOG: Das Roll + Write Spiel | 2024 |
-| 428725 | Asara (2nd Edition): Premium Edition | 2024 |
-| 428747 | Epic Cat Christmas: Win the Holidays! | 2024 |
-| 428751 | Postcard Solomons CVs | 2024 |
-| 428752 | Temperance | 2024 |
-| 428763 | Defactos: Istoria Romaniei I | 2024 |
-| 428764 | Fifty Fifty | 2024 |
-| 428766 | Boa Boa | 2024 |
-| 428780 | Ref! O jogo da referência | 2024 |
-| 428781 | Check PLEASE! | 2024 |
-| 428782 | BOOM BOOM | 2024 |
-| 428790 | Rabbit’s Potion | 2024 |
-| 428796 | Am I Racist | 2024 |
-| 428797 | Armor Up | 2024 |
-| 428801 | Front Line: Tactics Edition | 2024 |
-| 428816 | Monopoly: Flip Edition – Marvel | 2024 |
-| 428818 | Bella Italia | 2024 |
-| 428819 | Deadly Whisper: Feast of the Gods | 2024 |
-| 428820 | Deadly Whisper: Asylum of Death | 2024 |
-| 428834 | Worldwide Decathlon | 2024 |
-| 428838 | Hockey Heroes | 2024 |
-| 428844 | S.U.P.E.R. Héroes y villanos | 2024 |
-| 428847 | Mango | 2024 |
-| 428852 | The Horror: Possession | 2024 |
-| 428886 | Only Love | 2024 |
-| 428890 | Side Quest: The Isle of Cats | 2024 |
-| 428891 | Hunted: North Pole (2nd Edition) | 2024 |
-| 428892 | Devilry Afoot | 2024 |
-| 428899 | Jelly Belly BeanBoozled: Taste the Truth Game | 2024 |
-| 428903 | Numerica Fantastica | 2024 |
-| 428904 | Desperate Oasis | 2024 |
-| 428905 | Warning: This Game Farts! | 2024 |
-| 428909 | Baby Bears Adventure Board Game | 2024 |
-| 428910 | Robot Builders Board Game | 2024 |
-| 428933 | Don’t Spill My Tea | 2024 |
-| 428936 | Strange Rule | 2024 |
-| 428937 | 曲奇加加樂 (Cookie Combo) | 2024 |
-| 428942 | DRAK | 2024 |
-| 428947 | Kaito & Diamond | 2024 |
-| 428948 | Pixel Forts | 2024 |
-| 428949 | Warleague | 2024 |
-| 428951 | Dog Bone Dog | 2024 |
-| 428967 | Kwiz | 2024 |
-| 428989 | EcoLogic: Europe | 2024 |
-| 429031 | Alien Sanctuary | 2024 |
-| 429032 | Eradication | 2024 |
-| 429034 | 開運コロシアム (Kaiun Coliseum) | 2024 |
-| 429047 | Chirlito ROLL | 2024 |
-| 429054 | Hoddog | 2024 |
-| 429058 | Groopic Monsters’ Style | 2024 |
-| 429060 | DIDAYO | 2024 |
-| 429061 | TaleOrMem | 2024 |
-| 429113 | Battle of Mekaverse | 2024 |
-| 429121 | Battleship Tactical Strike! | 2024 |
-| 429128 | Wicked: The Game | 2024 |
-| 413181 | Pong Party! The Game | 2023 |
-| 427280 | ALZH3IM3R | 2023 |
-| 427559 | Family Judgement | 2023 |
-| 427647 | Dragon Hero | 2023 |
-| 427719 | Aquarium Trading | 2023 |
-| 427740 | Lost Places | 2023 |
-| 427808 | The Infinite Maze | 2023 |
-| 427881 | 妖怪百奇八光 (Yokai Hyakkiyako) | 2023 |
-| 427882 | Host Your Own Escape Room: Island Edition | 2023 |
-| 428118 | Vilnius | 2023 |
-| 428122 | Bangarang In the Gutterlands | 2023 |
-| 428259 | Tornscape | 2023 |
-| 428272 | Battle Requiem | 2023 |
-| 428318 | Death Game Card: Coin | 2023 |
-| 428442 | HACK | 2023 |
-| 428508 | Chirlito RACE | 2023 |
-| 428519 | ICE Civic Game | 2023 |
-| 428541 | Sibley Birder’s Trivia | 2023 |
-| 428627 | Plouf Canard | 2023 |
-| 428678 | Zungenbrecher: Raus mit der Sprache! | 2023 |
-| 428753 | The Dog’s Best Friend Game | 2023 |
-| 428778 | Mentalista | 2023 |
-| 428795 | Não Me Toca Seu Boboca! | 2023 |
-| 428824 | Movie Mayhem: Buzzer Game | 2023 |
-| 428906 | Cross Clues: Sample Pack | 2023 |
-| 428935 | Timeline: ASI ed ESA | 2023 |
-| 429062 | Speedy Monsters | 2023 |
-| 428286 | Wobbly Edamame Balance | 2022 |
-| 428484 | Onde foi parar meu Osso? | 2022 |
-| 428500 | 15 Minute Cold War: Expansion Edition | 2022 |
-| 428501 | 15 Minute Cold War: Six Day War Edition | 2022 |
-| 428584 | Kalologos | 2022 |
-| 428761 | Alias: Moomin kuvaselityspeli | 2022 |
-| 428771 | SpeedBac | 2022 |
-| 428773 | Austerity Card Game | 2022 |
-| 428798 | PopSavvy: After Dark | 2022 |
-| 429172 | Cut the Crop | 2022 |
-| 428403 | ドラえもん ひみつ道具 ナイ！ナイ！ナ～イ！ゲーム (Doraemon Himitsu Dougu Nai! Nai! Na~i! Game) | 2021 |
-| 428408 | 新米オーナー、見習いスタッフたちとレストランを救う。 (Save New Owners, Apprentice Staff and Restaurants) | 2021 |
-| 428775 | Pay Day: Rivals Edition | 2021 |
-| 428786 | Suuri Sienijahti | 2021 |
-| 428940 | Dungeons of Numera | 2021 |
-| 429052 | Top Dogs Card Game | 2021 |
-| 416134 | Tombola delle Parole | 2020 |
-| 425773 | Root: Jeu de base + La Rivière | 2020 |
-| 428237 | Före eller efter? | 2020 |
-| 428611 | Laäg | 2020 |
-| 428680 | Curve Ball | 2020 |
-| 428982 | Grandmaster | 2020 |
-| 429053 | Cluedo: Pummel & Friends | 2020 |
-| 427993 | Camp Macabre | 2019 |
-| 428750 | 原チャリ番長 (Genchari Bancho) | 2019 |
-| 428882 | Catastrophic | 2019 |
-| 428481 | Like Totally 80s Pop Culture Trivia Game | 2018 |
-| 428583 | SH!THEAD | 2018 |
-| 428625 | Lap of the Gods | 2016 |
-| 427988 | Starfire: 2nd Edition – PDF Rules | 2014 |
-| 428128 | Μέτρο Μέτρο στο Μετρό (Metro Metro in the Metro) | 1998 |
-| 165274 | Super Sea Battle | 1995 |
-| 428415 | Zoo Logical | 1992 |
-| 429059 | Trio | 1989 |
-| 429042 | Panic! | 1987 |
-| 427583 | Starfire (2nd Edition) | 1984 |
-| 428839 | One Shot Yott | 1977 |
-| 428768 | il Gioco dell’Iliade | 1976 |
-| 427960 | graph-it | 1974 |
-| 427983 | factor pairs | 1974 |
-| 428177 | Factor Bridge | 1973 |
-| 428178 | 1-Sum Fraction Game | 1973 |
-| 428179 | 9… Make 10 | 1973 |
-| 428681 | Milionário | 1970 |
-| 428793 | Macadam | 1969 |
-| 428267 | Gesundheitsmagazin | 1964 |
-| 428088 | Span-it Space Maze | 1948 |
-| 427557 | Classic Surf | NA |
-| 427562 | Unpopular Opinions: The Card Game | NA |
-| 427592 | The Thinning Veil: Red Mist | NA |
-| 427714 | Cheesed Off! | NA |
-| 427742 | Firelock 198X | NA |
-| 428087 | Strigoy: A Social Deduction Game | NA |
-| 428107 | Μάντεψε τι!! (Guess What!!) | NA |
-| 428142 | Μάντεψε! Παντομίμα (Guess! Pantomime) | NA |
-| 428263 | Felix der Kater auf der Weltreise | NA |
-| 428546 | Trader’s Journey | NA |
-| 428633 | Spout: Angel Edition | NA |
-| 428677 | Doomsayers | NA |
-| 428694 | Yuru Tarot | NA |
-| 428697 | Die Entdeckung des Nordpols | NA |
-| 428700 | Spout: Awful Edition | NA |
-| 428723 | Banzai | NA |
-| 428757 | Komm, kauf mit ein! | NA |
-| 428769 | Vertical Garden | NA |
-| 428799 | Barlòtt | NA |
-| 428825 | The Hygge Game: Trivia Edition | NA |
-| 428902 | Trick Market | NA |
-| 429022 | Mini Seasons Lite | NA |
-| 429024 | Draconis 8 | NA |
+| 429125 | Travail | 2026 |
+| 429239 | Rupert’s Land | 2026 |
+| 429301 | Insania | 2026 |
+| 429373 | Cola Wars | 2026 |
+| 429394 | Shiver | 2026 |
+| 429578 | West Front ’44 | 2026 |
+| 429579 | Maikop to Baku | 2026 |
+| 424785 | Crafting the Cosmos | 2025 |
+| 427263 | Line of Fire: Burnt Moon | 2025 |
+| 428638 | Vegas Strip | 2025 |
+| 428889 | Lore: Second Edition | 2025 |
+| 429020 | Paper World | 2025 |
+| 429124 | Last Aurora: Firelands | 2025 |
+| 429129 | The Souls | 2025 |
+| 429149 | Showboating | 2025 |
+| 429150 | Panopticon | 2025 |
+| 429167 | Sunshine Cities | 2025 |
+| 429169 | Redsky | 2025 |
+| 429203 | Nutty Space Adventure | 2025 |
+| 429218 | World War 3: 1989, East Asia Front | 2025 |
+| 429231 | Heroes of Serendall | 2025 |
+| 429234 | Rejig | 2025 |
+| 429266 | Dicker & Dice | 2025 |
+| 429275 | Göbeklitepe: Dawn of Human | 2025 |
+| 429293 | The Fellowship of the Ring: Trick-Taking Game | 2025 |
+| 429329 | Melding Snow | 2025 |
+| 429333 | Treat, Please! | 2025 |
+| 429369 | Yuyutsu | 2025 |
+| 429378 | Malediction | 2025 |
+| 429380 | Solomons Campaign 1942-43 | 2025 |
+| 429381 | Invasion Australia | 2025 |
+| 429401 | Manhattan Project: Energy Empire | 2025 |
+| 429405 | Orloj: The Prague Astronomical Clock | 2025 |
+| 429413 | Operation Ironclad: Battle for Madagascar, 1942 | 2025 |
+| 429423 | Postcards | 2025 |
+| 429431 | Miskatonic Tales: Journey to Innsmouth | 2025 |
+| 429438 | Ayar: Children of the Sun | 2025 |
+| 429446 | Moirai | 2025 |
+| 429477 | King of the Forest | 2025 |
+| 429483 | Cannibal World | 2025 |
+| 429539 | Joymundo: Travel the World Game | 2025 |
+| 429580 | Skirmish: Battle for Glavia | 2025 |
+| 429587 | Dragon Cantina | 2025 |
+| 429644 | Atakaba | 2025 |
+| 429650 | The Treasure Ship of Zheng He | 2025 |
+| 429657 | Chess Rivals | 2025 |
+| 429669 | Limpopo | 2025 |
+| 429717 | Railroad Tiles: Collector’s Edition | 2025 |
+| 429770 | Into The Dark Dungeon: Silver Mine | 2025 |
+| 429797 | The Bad Karmas and the Curse of Cthulhu | 2025 |
+| 429810 | Rex Atlantis | 2025 |
+| 429827 | Bôken | 2025 |
+| 429836 | Hubworld: Aidalon | 2025 |
+| 429840 | Twisted Cryptids | 2025 |
+| 429842 | Twisted Cryptids: Exclusive Edition | 2025 |
+| 429845 | Jisogi: Anime Studio Tycoon | 2025 |
+| 429849 | Red Carpet | 2025 |
+| 429851 | Quorum | 2025 |
+| 429853 | Deep Dreams | 2025 |
+| 429854 | That House by the Lake | 2025 |
+| 429860 | Transgalactica | 2025 |
+| 429861 | Ace of Spades | 2025 |
+| 429863 | Covenant | 2025 |
+| 429864 | The Guest | 2025 |
+| 429865 | Ring Ring | 2025 |
+| 429866 | Dungeon Duel: Monsters and Heroes | 2025 |
+| 429889 | Magnus Protocol Mysteries: The Last Supper | 2025 |
+| 429890 | Magnus Protocol Mysteries: Six Feet Under | 2025 |
+| 429891 | Magnus Protocol Mysteries: The Grinning Corpse | 2025 |
+| 429892 | Magnus Protocol Mysteries: The Doppelganger | 2025 |
+| 429893 | Magnus Protocol Mysteries: The Woman on Fire | 2025 |
+| 429894 | Magnus Protocol Mysteries: Blackout | 2025 |
+| 429911 | Circle the Wagons: Essential Collection | 2025 |
+| 429939 | Interregnum | 2025 |
+| 429940 | Avec Infini Regret IV | 2025 |
+| 429956 | Advanced Fighting Fantasy: Dark Dungeons – The Boardgame | 2025 |
+| 429962 | Pax Porfiriana: Ultimate Edition | 2025 |
+| 429970 | Frankezen | 2025 |
+| 430010 | Power Creep | 2025 |
+| 430017 | The Waste of Parts | 2025 |
+| 430023 | Catopomp | 2025 |
+| 430041 | Reinos Oníricos de Lovecraft | 2025 |
+| 430062 | Blood & Treasure | 2025 |
+| 430067 | Mystic Manor | 2025 |
+| 430068 | The Lions of El Alamein | 2025 |
+| 430082 | Elemental Clash | 2025 |
+| 430170 | An Honorable Peace? | 2025 |
+| 430243 | Vineyard: A Winemaking Game | 2025 |
+| 430247 | Stability Island | 2025 |
+| 430293 | I C E: Unlimited Box | 2025 |
+| 430319 | Kilauea | 2025 |
+| 430349 | Usolli: The Strategic Board Game About Salah | 2025 |
+| 427618 | Tiny Epic Game of Thrones: Deluxe Edition | 2024 |
+| 427651 | Spice Ships | 2024 |
+| 428813 | Bright Yacht Cup Upwind Downwind | 2024 |
+| 428870 | Alpaca Fiesta | 2024 |
+| 429019 | Froots | 2024 |
+| 429097 | Tyrannical | 2024 |
+| 429132 | What The Fog?! | 2024 |
+| 429148 | Denizens: The Hero-War | 2024 |
+| 429153 | totoANIMO | 2024 |
+| 429155 | Chiron | 2024 |
+| 429157 | Element of Fun | 2024 |
+| 429166 | Keyforge Event Pack: Martian Civil War | 2024 |
+| 429176 | Never Mind the Billhooks: Here’s the Ruckus | 2024 |
+| 429178 | Mixtopian Saga RPS | 2024 |
+| 429186 | Герои (Heroes) | 2024 |
+| 429230 | Astrorum | 2024 |
+| 429241 | Palmodyssey | 2024 |
+| 429243 | Nomads: A Game of Survival | 2024 |
+| 429245 | Expellere | 2024 |
+| 429250 | Metropolis | 2024 |
+| 429254 | Smart10: L’impertinent | 2024 |
+| 429262 | Warhammer 40,000: Kill Team – Hivestorm | 2024 |
+| 429264 | Dingo Duel | 2024 |
+| 429272 | Guess in 10: American History | 2024 |
+| 429305 | モントゴメリーの憂鬱：孤高のアルンヘム1944 (Solitaire Monty 1944) | 2024 |
+| 429306 | 孤高の曹操：建安元年 (Solitaire Cao Cao) | 2024 |
+| 429307 | クロニクル・オブ・ジャパン ～邪馬台国から明治維新まで～ (Chronicle of Japan) | 2024 |
+| 429332 | Pup Idols | 2024 |
+| 429340 | Storm Clouds | 2024 |
+| 429341 | Touch the Moon | 2024 |
+| 429347 | Duck & Dive | 2024 |
+| 429349 | Herbivores | 2024 |
+| 429367 | Lux Nova | 2024 |
+| 429374 | Butter Crime | 2024 |
+| 429376 | The Pi Game | 2024 |
+| 429385 | Les Ribauds: Aventures solo en Austerion | 2024 |
+| 429386 | Une chauchette chachant chacher | 2024 |
+| 429388 | Tokyo Big Sight Card Game | 2024 |
+| 429389 | Potato Party: Mashterworks | 2024 |
+| 429390 | AOITRT | 2024 |
+| 429402 | Top Cat | 2024 |
+| 429403 | Lonja | 2024 |
+| 429404 | The Secret Relics of Wizards | 2024 |
+| 429406 | Wednesday Raven’s Truth | 2024 |
+| 429411 | Kitsu | 2024 |
+| 429414 | Imperfect Crimes: Pop-Up Escape Book | 2024 |
+| 429416 | Number Explorers: A Space Adventure | 2024 |
+| 429427 | Spain Rails | 2024 |
+| 429443 | Dicionautas | 2024 |
+| 429450 | Talavera | 2024 |
+| 429452 | La Légende du Colibri | 2024 |
+| 429453 | Poetry for Neanderthals: Pop Culture Edition | 2024 |
+| 429454 | Nevermind The Distraction: Abstract Edition | 2024 |
+| 429455 | Nevermind The Distraction: Life Edition | 2024 |
+| 429456 | Halloween II | 2024 |
+| 429457 | Echo of the Predator | 2024 |
+| 429458 | Hexemony | 2024 |
+| 429459 | Name Game | 2024 |
+| 429461 | しゃてきーや (Syateki Ya) | 2024 |
+| 429462 | Entice | 2024 |
+| 429464 | Bolicheros de Barrio | 2024 |
+| 429465 | Ascensor of Braga | 2024 |
+| 429467 | DOTS | 2024 |
+| 429476 | Fly for Fight | 2024 |
+| 429478 | Mirages: Formation Series \#1 | 2024 |
+| 429488 | Big Fish Card Game | 2024 |
+| 429491 | Celestia: Big Box | 2024 |
+| 429496 | Monopoly: Spirit | 2024 |
+| 429515 | Immortal | 2024 |
+| 429516 | TROLLympics | 2024 |
+| 429517 | Trick 100 | 2024 |
+| 429518 | Failure Mode Racing | 2024 |
+| 429531 | サンサンダイス (San San Dice) | 2024 |
+| 429532 | Dropping Drops | 2024 |
+| 429537 | Sheng Xiao | 2024 |
+| 429549 | Brewfest Buzz | 2024 |
+| 429554 | Happy Garden | 2024 |
+| 429582 | Hail Caesar Epic Battles: Hannibal Battle-Set | 2024 |
+| 429585 | Метнись кабанчиком! (Run like a hog!) | 2024 |
+| 429597 | Herring reAction | 2024 |
+| 429604 | Crete, 20 – 22nd May 1941 | 2024 |
+| 429605 | Das kleine böse Kartenspiel: Monster Mogeln | 2024 |
+| 429608 | Mü & more: Revised Edition | 2024 |
+| 429622 | Tiskijukka | 2024 |
+| 429631 | Dumpling Defenders (Захисники пельменів) | 2024 |
+| 429632 | Терем-теремок (Terem-Teremok) | 2024 |
+| 429635 | Electioneer: UK Edition | 2024 |
+| 429636 | Risk: Stranger Things | 2024 |
+| 429639 | Monopoly: Sonic the Hedgehog | 2024 |
+| 429640 | Strawman Struggle | 2024 |
+| 429641 | Monopoly: Hello Kitty | 2024 |
+| 429646 | Bomb Alley | 2024 |
+| 429648 | The Game of Life: Hello Kitty and Friends | 2024 |
+| 429651 | Clue: Goosebumps | 2024 |
+| 429652 | バクチはアクマでツいてから (Gambling King) | 2024 |
+| 429653 | Andromeda’s Edge: Deluxe Edition | 2024 |
+| 429661 | Tofu Shifu | 2024 |
+| 429662 | Poodle Taxi | 2024 |
+| 429663 | 百家 (Schools of Thought) | 2024 |
+| 429667 | Volatile Vintage | 2024 |
+| 429668 | Драконоборцы (Dragon-Slayers) | 2024 |
+| 429670 | Who\`s Next | 2024 |
+| 429677 | Tatort Meer Weihnachten in Gefahr | 2024 |
+| 429687 | みんなでトリックビーノ (Minna de Torikku Bīno) | 2024 |
+| 429699 | Wish Upon a Star | 2024 |
+| 429700 | Vamos Dia | 2024 |
+| 429709 | Noble Escape | 2024 |
+| 429710 | Todos contra a Dengue Roll and Write ! | 2024 |
+| 429718 | Gone! | 2024 |
+| 429749 | Crypt Crawler | 2024 |
+| 429751 | Survival of the Fattest: Deluxe Kickstarter Edition | 2024 |
+| 429758 | Not for me | 2024 |
+| 429763 | Remember The Music: All Time Edition | 2024 |
+| 429768 | Entrenched: Gallia Guards | 2024 |
+| 429777 | The Fast and the Curious | 2024 |
+| 429779 | Clues in Twos | 2024 |
+| 429804 | Tank Commander | 2024 |
+| 429805 | Miasmatic Mayhem | 2024 |
+| 429807 | kaleiDOS | 2024 |
+| 429816 | Unlock!: Short Adventures – Dans la tête de Sherlock Holmes | 2024 |
+| 429838 | SongFest! | 2024 |
+| 429844 | Monopoly: Board Crawl | 2024 |
+| 429852 | YAHS | 2024 |
+| 429855 | Pyrrhus: Le modèle d’hannibal | 2024 |
+| 429856 | Ice Hockey with Dice | 2024 |
+| 429858 | Baseball with Dice | 2024 |
+| 429862 | Cast Your Nets | 2024 |
+| 429874 | Candy Land: Bluey | 2024 |
+| 429886 | Syllabuster | 2024 |
+| 429900 | I’m Kind of a Big Dill | 2024 |
+| 429913 | High-Rise | 2024 |
+| 429926 | The Tracker: Postapocalyptic Ranger | 2024 |
+| 429941 | CORSAIR: Mississippi Bay | 2024 |
+| 429942 | CORSAIR: Shantou Bay | 2024 |
+| 429960 | Age of the Moon | 2024 |
+| 429972 | Irmã Nuna | 2024 |
+| 429974 | Vineyard Run | 2024 |
+| 429983 | Emergency Operations Center Board Game: Wildfire Mayhem | 2024 |
+| 429992 | Berlin 1945 | 2024 |
+| 429994 | Siege: Asedio | 2024 |
+| 430000 | Kopfkino à la carte | 2024 |
+| 430007 | Gratte le Ciel | 2024 |
+| 430020 | Flip and Find: Pet Detectives | 2024 |
+| 430022 | Clash Of Steel: Operation Unthinkable – German vs British Complete Starter Set | 2024 |
+| 430026 | Build That Wall | 2024 |
+| 430039 | 文明源记：上古传说 (The Roots of Civilization) | 2024 |
+| 430117 | Die Schule der magischen Tiere: Zutritt verboten! | 2024 |
+| 430147 | Tic Tac Rally | 2024 |
+| 430159 | Scope: Eurooppa | 2024 |
+| 430160 | SMASK! | 2024 |
+| 430161 | Dreamteam | 2024 |
+| 430162 | Toilet Divers | 2024 |
+| 430191 | Lair: Yanar’s Vault | 2024 |
+| 430205 | In a Dark Wood | 2024 |
+| 430207 | Thief Rush | 2024 |
+| 430265 | Yowie Kapowie | 2024 |
+| 430275 | Adh Mor | 2024 |
+| 430277 | Apiary | 2024 |
+| 430288 | Trombone Champ | 2024 |
+| 430291 | Up Dog | 2024 |
+| 430343 | Armas Salvajes | 2024 |
+| 430345 | Batalha dos Cookies | 2024 |
+| 430368 | Heaven’s Will: The Attack on Ulithi Atoll, November 1944 | 2024 |
+| 430378 | Snack-O-Saurus Rex | 2024 |
+| 430394 | Connect-o-Mania | 2024 |
+| 430399 | Mall Cop | 2024 |
+| 430402 | Masterpiece: The Third Battle of Kharkov | 2024 |
+| 430404 | Britskrieg!: Operation Brevity, May 15-16, 1941 | 2024 |
+| 430444 | Munchkin Shadowrun | 2024 |
+| 430445 | Hauntsville | 2024 |
+| 430451 | Хата Багата (Rich House) | 2024 |
+| 430454 | Monopoly: SLO CAL Edition | 2024 |
+| 406914 | Nekojima: Collector’s Edition | 2023 |
+| 429190 | Midrash | 2023 |
+| 429396 | Death Game Card: Bomb | 2023 |
+| 429398 | Death Game Card: Fire | 2023 |
+| 429400 | Death Game Card: Duel | 2023 |
+| 429463 | Copy Cat Meow | 2023 |
+| 429492 | Crime Scene: Luxor 1932 | 2023 |
+| 429523 | Unbearable Bears | 2023 |
+| 429529 | Merchants of Haniwa | 2023 |
+| 429589 | Полный порядок (Very Orderly) | 2023 |
+| 429607 | Guess My Animal!: Endangered Species Charades | 2023 |
+| 429654 | Blood Recall | 2023 |
+| 429857 | Craft My Coast | 2023 |
+| 429859 | Happy Village | 2023 |
+| 429879 | Carbon Neutrality | 2023 |
+| 430308 | Kawarimi | 2023 |
+| 430334 | Chicken Fight | 2023 |
+| 430397 | Zavod: The Runners | 2023 |
+| 405732 | TTMC: Format de Voyage, vol. 2 | 2022 |
+| 429249 | 西遊記之花果山 (Mount Huaguo Journey to the West) | 2022 |
+| 429621 | Tengo Duo | 2022 |
+| 429671 | Meidum | 2022 |
+| 429950 | The Hunt for Eritrea | 2022 |
+| 429173 | 1,2,3 Glisse ! | 2021 |
+| 429273 | Family Feud: Disney Edition | 2021 |
+| 429328 | Funb3rs: Fun with Numbers | 2021 |
+| 429475 | Monopoly: Naruto | 2021 |
+| 429494 | Erik Eikel | 2021 |
+| 429935 | Around the World Travel Game | 2021 |
+| 429224 | Mysteres a Paris | 2020 |
+| 429225 | La Casa de Papel: Het Spel | 2020 |
+| 429393 | UNO: The Office | 2020 |
+| 429469 | Ding Dong! | 2020 |
+| 429596 | Fireside Story Dice | 2020 |
+| 429633 | Escape Box: Casino | 2020 |
+| 429535 | Das kuriose Österreich Quiz | 2019 |
+| 429951 | The Brigade without Color | 2019 |
+| 429991 | Happy Sheep: Das Wilde Kartenspiel | 2019 |
+| 430096 | Mountaineers: Deluxe Edition | 2019 |
+| 430125 | That Flipping Word Game | 2019 |
+| 429952 | Battle of Mukden | 2018 |
+| 430138 | Lumber Merchant | 2018 |
+| 430348 | Fields of Blue & Grey | 2018 |
+| 429471 | Crown Hearts | 2017 |
+| 429506 | Guess What? (你猜怎么着) | 2017 |
+| 429947 | Operation Konrad: Budapest 1945 – The Bitter End | 2017 |
+| 429953 | Night Attack on Slim | 2017 |
+| 430256 | Forged Realms: Fields of Flame | 2017 |
+| 428854 | Rebenta a Bolha | 2016 |
+| 430383 | Wave To The Missionaries | 2016 |
+| 430139 | Fear Vier | 2015 |
+| 430353 | Zodiac | 2015 |
+| 430425 | The Bridge | 2014 |
+| 430435 | Fuer | 2014 |
+| 430134 | Wise Man’s Stones | 2013 |
+| 430137 | Whose Foods | 2013 |
+| 430429 | The King of Rings | 2013 |
+| 430132 | OKI 24 | 2012 |
+| 429302 | Abbey Road Studios: Music Trivia Game | 2011 |
+| 429780 | Boribon és Annipanni: A nagy szamóca-vadászat | 2011 |
+| 429781 | Kippkopp Rakosgató | 2011 |
+| 429415 | Beugró 2 | 2010 |
+| 430419 | Dr. Sue | 2010 |
+| 430421 | Jump | 2009 |
+| 430355 | R&B-Dual | 2008 |
+| 430424 | Skips | 2008 |
+| 430427 | Check it | 2008 |
+| 430426 | Dice4 | 2007 |
+| 430045 | Crab Dice Game | 2006 |
+| 430028 | The King’s Ear | 2005 |
+| 429348 | UNO Slam | 1996 |
+| 429271 | The Energy Resource Game | 1995 |
+| 429514 | Word Tango | 1990 |
+| 429748 | Horror Night | 1989 |
+| 430145 | Vegas Nite Casino Games | 1988 |
+| 430130 | Farben-Trendel | 1949 |
+| 430457 | Anteportas 1915 | 1915 |
+| 429206 | Verlorene Fahrkarte | NA |
+| 429209 | Fuß-Ball: Der Sport von Heute | NA |
+| 429260 | Water War: La Guerra per l’Acqua | NA |
+| 429268 | Little Bluebird’s Matching Game | NA |
+| 429269 | Fishing Game | NA |
+| 429352 | Empire: TCG | NA |
+| 429466 | The Mystery Experiences Company: The Lost City | NA |
+| 429474 | Power Well | NA |
+| 429612 | PEI-opoly | NA |
+| 429774 | Mistakos: Paint | NA |
+| 429776 | Mistakos: Platform | NA |
+| 429808 | Schäfchenspiel | NA |
+| 429944 | Gnomy | NA |
+| 429955 | Kampf um die Fahne | NA |
+| 429986 | Flightpath | NA |
+| 430209 | El Castillo: The Temple of Kukulcán | NA |

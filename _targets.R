@@ -25,9 +25,9 @@ log_info(paste("Starting pipeline in", env, "environment"))
 googleCloudStorageR::gcs_auth(json_file = Sys.getenv("GCS_AUTH_FILE"))
 
 # set default bucket
-#suppressMessages({
+# suppressMessages({
 googleCloudStorageR::gcs_global_bucket(bucket = cfg$bucket)
-#})
+# })
 
 # packages
 tar_option_set(

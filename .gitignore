@@ -61,4 +61,3 @@ gha-creds-*.json
 README.html
 /.quarto/
 /logs/
-/_site/

@@ -1,9 +1,0 @@
-.RData
-.Rhistory
-.git
-.gitignore
-manifest.json
-rsconnect/
-.Rproj.user
-# Ignore generated credentials from google-github-actions/auth
-gha-creds-*.json

@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Phil Henrickson">
+<meta name="dcterms.date" content="2025-03-20">
+
+<title>BGG Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="site_libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
+<style>
+.panel-tabset > .nav-tabs,
+.panel-tabset > .tab-content {border: none;}
+</style>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">BGG Data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a>
+  <ul class="collapse">
+  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="header-section-number">1.1</span> Targets</a></li>
+  <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline"><span class="header-section-number">1.2</span> Pipeline</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">1.3</span> Data</a></li>
+  <li><a href="#games" id="toc-games" class="nav-link" data-scroll-target="#games"><span class="header-section-number">1.4</span> Games</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">BGG Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Phil Henrickson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 20, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Overview</h1>
+<p>Loading historical data from BoardGameGeek (BGG) for predictive modeling and analysis.</p>
+<ol type="1">
+<li>Loads universe of game ids from <a href="http://bgg.activityclub.org/bggdata/thingids.txt%5D">bgg activity club</a></li>
+<li>Submits batches of requests via <a href="https://github.com/phenrickson/bggUtils">bggUtils</a></li>
+<li>Stores responses on BigQuery and Google Cloud Storage</li>
+</ol>
+<section id="targets" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="targets"><span class="header-section-number">1.1</span> Targets</h2>
+<p>Uses <a href="https://github.com/ropensci/targets">targets</a> package to create pipeline</p>
+</section>
+<section id="pipeline" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="pipeline"><span class="header-section-number">1.2</span> Pipeline</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set default bucket name to 'bgg_data_dev'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-9663d5ca779b21e41e2c" style="width:100%;height:371px;"></div>
+<script type="application/json" data-for="htmlwidget-9663d5ca779b21e41e2c">{"x":{"nodes":{"name":["batch_numbers","bgg_ids","game_ids","games","games_batch","ranked_games","req_game_batches","resp_game_batches"],"type":["stem","stem","stem","stem","stem","stem","stem","pattern"],"description":[null,null,null,null,null,null,null,null],"status":["outdated","uptodate","uptodate","outdated","outdated","outdated","outdated","outdated"],"seconds":[0.624,1.584,0.095,0.5580000000000001,0.176,0.857,0.572,6529.665],"bytes":[13586,484908,330535,0,84161872,0,360391,23454326],"branches":[null,null,null,null,null,null,null,6400],"label":["batch_numbers","bgg_ids","game_ids","games","games_batch","ranked_games","req_game_batches","resp_game_batches"],"color":["#78B7C5","#354823","#354823","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["batch_numbers","bgg_ids","game_ids","games","games_batch","ranked_games","req_game_batches","resp_game_batches"],"level":[3,1,2,7,6,7,4,5],"shape":["dot","dot","dot","dot","dot","dot","dot","square"]},"edges":{"from":["game_ids","games_batch","batch_numbers","game_ids","req_game_batches","games_batch","bgg_ids","resp_game_batches","bgg_ids"],"to":["batch_numbers","games","req_game_batches","req_game_batches","resp_game_batches","ranked_games","games_batch","games_batch","game_ids"],"arrows":["to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Up to date","Stem","Pattern"],"color":["#78B7C5","#354823","#899DA4","#899DA4"],"shape":["dot","dot","dot","square"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="data" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="data"><span class="header-section-number">1.3</span> Data</h2>
+<p>batches of games requested from API</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>list_games_objects <span class="ot">=</span> <span class="cf">function</span>(bucket, <span class="at">prefix =</span> <span class="st">"raw/objects/games"</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    googleCloudStorageR<span class="sc">::</span><span class="fu">gcs_list_objects</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">bucket =</span> bucket,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">prefix =</span> prefix,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">versions =</span> T,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">detail =</span> <span class="st">"full"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(name <span class="sc">==</span> prefix) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">arrange</span>(<span class="fu">desc</span>(updated))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>print_games_objects <span class="ot">=</span> <span class="cf">function</span>(obj) {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    obj <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(bucket, name, generation, updated) <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>buckets <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"bgg_data"</span>, <span class="st">"bgg_data_dev"</span>, <span class="st">"bgg_data_staging"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>games_objs <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    buckets,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">list_games_objects</span>(<span class="at">bucket =</span> .x)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(games_objs) <span class="ot">=</span> buckets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Production</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Staging</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>games_objs<span class="sc">$</span>bgg_data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_games_objects</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">bucket</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">generation</th>
+<th style="text-align: left;">updated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1742489667404929</td>
+<td style="text-align: left;">2025-03-20 16:54:27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1741629678449522</td>
+<td style="text-align: left;">2025-03-10 18:01:18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1740875193707566</td>
+<td style="text-align: left;">2025-03-02 00:26:33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1732133366577344</td>
+<td style="text-align: left;">2024-11-20 20:09:26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1730333447804461</td>
+<td style="text-align: left;">2024-10-31 00:10:47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1728676924892464</td>
+<td style="text-align: left;">2024-10-11 20:02:04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1726869993009335</td>
+<td style="text-align: left;">2024-09-20 22:06:33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1724967426023865</td>
+<td style="text-align: left;">2024-08-29 21:37:06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1723671710966893</td>
+<td style="text-align: left;">2024-08-14 21:41:51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1721888393714463</td>
+<td style="text-align: left;">2024-07-25 06:19:53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1721147850023745</td>
+<td style="text-align: left;">2024-07-16 16:37:30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1720538619978866</td>
+<td style="text-align: left;">2024-07-09 15:23:40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1719427179309064</td>
+<td style="text-align: left;">2024-06-26 18:39:39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1718727954502104</td>
+<td style="text-align: left;">2024-06-18 16:25:54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1717875919368938</td>
+<td style="text-align: left;">2024-06-08 19:45:19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1717195700015761</td>
+<td style="text-align: left;">2024-05-31 22:48:20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1716489185536915</td>
+<td style="text-align: left;">2024-05-23 18:33:05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1715797632435985</td>
+<td style="text-align: left;">2024-05-15 18:27:12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1715108438703699</td>
+<td style="text-align: left;">2024-05-07 19:00:38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1714158379364878</td>
+<td style="text-align: left;">2024-04-26 19:06:19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1713464380724452</td>
+<td style="text-align: left;">2024-04-18 18:19:40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1711561705858375</td>
+<td style="text-align: left;">2024-03-27 17:48:25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1710336954503166</td>
+<td style="text-align: left;">2024-03-25 16:45:31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bgg_data</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1708980495752949</td>
+<td style="text-align: left;">2024-02-26 20:48:15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>games_objs<span class="sc">$</span>bgg_data_staging <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_games_objects</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 25%">
+<col style="width: 23%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">bucket</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">generation</th>
+<th style="text-align: left;">updated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bgg_data_staging</td>
+<td style="text-align: left;">raw/objects/games</td>
+<td style="text-align: left;">1742489631474868</td>
+<td style="text-align: left;">2025-03-20 16:53:51</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="games" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="games"><span class="header-section-number">1.4</span> Games</h2>
+<p>What’s new on BGG?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get last two generations</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>gens <span class="ot">&lt;-</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    games_objs<span class="sc">$</span>bgg_data <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(updated)) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(generation)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># most recent gen</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>active_games <span class="ot">&lt;-</span> <span class="fu">load_games_from_bucket</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bucket =</span> <span class="st">"bgg_data"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">generation =</span> gens[<span class="dv">1</span>]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>previous_games <span class="ot">&lt;-</span> <span class="fu">load_games_from_bucket</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">bucket =</span> <span class="st">"bgg_data"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">generation =</span> gens[<span class="dv">2</span>]</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># find games only in most recent batch</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>active_games <span class="sc">|&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        previous_games <span class="sc">|&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(game_id)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    bggUtils<span class="sc">:::</span><span class="fu">unnest_info</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(game_id, name, yearpublished) <span class="sc">|&gt;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(yearpublished)) <span class="sc">|&gt;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 77%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">game_id</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">yearpublished</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">440412</td>
+<td style="text-align: left;">Crumb Snatchers</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440571</td>
+<td style="text-align: left;">Arrival</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440663</td>
+<td style="text-align: left;">14ers</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440808</td>
+<td style="text-align: left;">Wee Folk</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440819</td>
+<td style="text-align: left;">Oquur: The Story of Mons</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440942</td>
+<td style="text-align: left;">Trismegistus: New Edition</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440991</td>
+<td style="text-align: left;">Helldivers 2: The Board Game</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441449</td>
+<td style="text-align: left;">Odysseus</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">335827</td>
+<td style="text-align: left;">Fleets: Galactic Warfare</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">437807</td>
+<td style="text-align: left;">Anxiety</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">439518</td>
+<td style="text-align: left;">Vex!</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440386</td>
+<td style="text-align: left;">Showbiz Tails</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440398</td>
+<td style="text-align: left;">Mission Savane</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440399</td>
+<td style="text-align: left;">BalaDino</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440400</td>
+<td style="text-align: left;">Potion Express</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440497</td>
+<td style="text-align: left;">Cleaning Service</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440505</td>
+<td style="text-align: left;">Snow Climbing</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440518</td>
+<td style="text-align: left;">ジェネリックテイキング (Generic Taking)</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440521</td>
+<td style="text-align: left;">Sunset</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440536</td>
+<td style="text-align: left;">Mi Cielo</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440603</td>
+<td style="text-align: left;">Dante Alighieri: Comedia – Paradiso</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440606</td>
+<td style="text-align: left;">Compile: Main 2</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440608</td>
+<td style="text-align: left;">HITSTER: 100%NL</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440609</td>
+<td style="text-align: left;">Duat</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440614</td>
+<td style="text-align: left;">Artisimo</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440619</td>
+<td style="text-align: left;">Best Board Game Ever: Build Your Board Game Empire</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440620</td>
+<td style="text-align: left;">Mal Ardent</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440621</td>
+<td style="text-align: left;">Wordsmiths</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440626</td>
+<td style="text-align: left;">Bigly</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440627</td>
+<td style="text-align: left;">La Traque</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440628</td>
+<td style="text-align: left;">Triangulate</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440629</td>
+<td style="text-align: left;">ButtChess + 1</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440630</td>
+<td style="text-align: left;">Temple ParaDice</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440634</td>
+<td style="text-align: left;">Driving Me Crazy!</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440641</td>
+<td style="text-align: left;">Lines in the Sand: Six Battles in WWII North Africa</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440645</td>
+<td style="text-align: left;">Tag You’re It!</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440662</td>
+<td style="text-align: left;">Heredity: Those Kids!</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440664</td>
+<td style="text-align: left;">La Bataille de Lauban, 1945</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440667</td>
+<td style="text-align: left;">Trenches: Night Raid</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440672</td>
+<td style="text-align: left;">Build the Mothership</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440674</td>
+<td style="text-align: left;">Explore the System</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440675</td>
+<td style="text-align: left;">Smuggle the Goods</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440676</td>
+<td style="text-align: left;">Raid the Cache</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440677</td>
+<td style="text-align: left;">Space Piracy</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440685</td>
+<td style="text-align: left;">Chicken Farm</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440689</td>
+<td style="text-align: left;">Tank Up</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440690</td>
+<td style="text-align: left;">Prop Hunt the Board Game</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440692</td>
+<td style="text-align: left;">NiNE</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440695</td>
+<td style="text-align: left;">Ruinborn: Dungeons of Cabora</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440697</td>
+<td style="text-align: left;">Squeaky Kingdom</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440709</td>
+<td style="text-align: left;">Wildhearts Academy</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440716</td>
+<td style="text-align: left;">Kunterbunter Bauernhof</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440719</td>
+<td style="text-align: left;">Allenby’s and Lawrence’s Desert Wars</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440721</td>
+<td style="text-align: left;">Schooled</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440724</td>
+<td style="text-align: left;">FlipLets</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440725</td>
+<td style="text-align: left;">Buzzin’ Picnic</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440726</td>
+<td style="text-align: left;">Wild Rummy: Zoology</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440727</td>
+<td style="text-align: left;">当头一棒：诺门罕战役 (A HEAD-ON BLOW: Battle of Khalkhin Gol 1939)</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440728</td>
+<td style="text-align: left;">Le village aux 5 dragons</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440736</td>
+<td style="text-align: left;">CODER.IO</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440747</td>
+<td style="text-align: left;">Victory or Martyrdom</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440748</td>
+<td style="text-align: left;">Meeple Diver</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440749</td>
+<td style="text-align: left;">Gokyesa: The Flying Artist</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440751</td>
+<td style="text-align: left;">PBI 2025</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440759</td>
+<td style="text-align: left;">The Mire</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440762</td>
+<td style="text-align: left;">ThreeHorn</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440764</td>
+<td style="text-align: left;">Eppi: Book 2 – The Chocolate Cheat</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440775</td>
+<td style="text-align: left;">Legendary: Game of Thrones Deck Building Game</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440801</td>
+<td style="text-align: left;">Море волнуется (The Sea Is Rough)</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440803</td>
+<td style="text-align: left;">Food Fight Frenzy</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440809</td>
+<td style="text-align: left;">Kaleidoscope</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440811</td>
+<td style="text-align: left;">Quarrel</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440818</td>
+<td style="text-align: left;">Crime Maps: Das goldene Vermächtnis</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440820</td>
+<td style="text-align: left;">Bug Run</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440843</td>
+<td style="text-align: left;">Moonshine</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440846</td>
+<td style="text-align: left;">Dungeon Post</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440850</td>
+<td style="text-align: left;">The Fisherman</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440852</td>
+<td style="text-align: left;">Cribbage Clash</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440856</td>
+<td style="text-align: left;">Connect 4 Frenzy</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440867</td>
+<td style="text-align: left;">Relic Wars</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440869</td>
+<td style="text-align: left;">Watercolor</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440873</td>
+<td style="text-align: left;">Brutal Beatdown: Savage</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440875</td>
+<td style="text-align: left;">Skulls of Sedlec: Essential Collection</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440885</td>
+<td style="text-align: left;">Thesauros</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440886</td>
+<td style="text-align: left;">Beast Slayers</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440893</td>
+<td style="text-align: left;">Blue &amp; Gray Deluxe Edition</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440900</td>
+<td style="text-align: left;">Sharking</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440901</td>
+<td style="text-align: left;">Parlament</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440902</td>
+<td style="text-align: left;">Die Landschaften</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440903</td>
+<td style="text-align: left;">The Bible is Funny Volume II</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440908</td>
+<td style="text-align: left;">Mercado de trueque</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440912</td>
+<td style="text-align: left;">Héroes de 4 Patas</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440917</td>
+<td style="text-align: left;">Mercando Ando</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440919</td>
+<td style="text-align: left;">Hitster 100% en Español</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440922</td>
+<td style="text-align: left;">Fish n’ Ships Aegean</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440926</td>
+<td style="text-align: left;">Go Poo! The Game</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440935</td>
+<td style="text-align: left;">Audience</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440936</td>
+<td style="text-align: left;">Hold the Line: Hannibal</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440937</td>
+<td style="text-align: left;">Biome Blitz</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440938</td>
+<td style="text-align: left;">South Mountain 1862</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440939</td>
+<td style="text-align: left;">1862 War in Virginia</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440940</td>
+<td style="text-align: left;">Epic Battle of Alesia</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440941</td>
+<td style="text-align: left;">Pillars of Fate</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440943</td>
+<td style="text-align: left;">Mafia Blitz</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440944</td>
+<td style="text-align: left;">Goblin Rush</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440977</td>
+<td style="text-align: left;">UO Catcher</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440982</td>
+<td style="text-align: left;">69: A Nice Card Game. About Numbers.</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440983</td>
+<td style="text-align: left;">Snow Leopard Shadow</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440984</td>
+<td style="text-align: left;">Tetris Tumble XL</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440989</td>
+<td style="text-align: left;">Nuclear Winds</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440990</td>
+<td style="text-align: left;">Kittens Love Sushi 2: Feeding Frenzy</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440993</td>
+<td style="text-align: left;">WRLD</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440994</td>
+<td style="text-align: left;">KeyForge: Discovery</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440996</td>
+<td style="text-align: left;">Tank Board Game II: Hex</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441003</td>
+<td style="text-align: left;">Brutal Beatdown: Training</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441004</td>
+<td style="text-align: left;">Clients Versus Architects</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441005</td>
+<td style="text-align: left;">Bot or Not</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441019</td>
+<td style="text-align: left;">Lunchbox Lair</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441036</td>
+<td style="text-align: left;">Quiltable: Fireplace Quilts</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441046</td>
+<td style="text-align: left;">Sausages: The Card Game</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441091</td>
+<td style="text-align: left;">Space Junkers</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441094</td>
+<td style="text-align: left;">In the Blink of a Dragon’s Eye</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441097</td>
+<td style="text-align: left;">Genius Idea</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441104</td>
+<td style="text-align: left;">Civil</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441112</td>
+<td style="text-align: left;">SHAPER</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441114</td>
+<td style="text-align: left;">Soothsayers</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441176</td>
+<td style="text-align: left;">Woodlanders</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441310</td>
+<td style="text-align: left;">Arkitects</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441313</td>
+<td style="text-align: left;">Reforest: Old Growth</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441347</td>
+<td style="text-align: left;">Conquering Hell: The Battle of Monfaucon, September 26-28, 1918</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441354</td>
+<td style="text-align: left;">Wrecking Ball</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441364</td>
+<td style="text-align: left;">Outfox</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441553</td>
+<td style="text-align: left;">Battle Pages</td>
+<td style="text-align: right;">2025</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">439217</td>
+<td style="text-align: left;">One Card: Clepto</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">439627</td>
+<td style="text-align: left;">BeFree Board Game</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">439996</td>
+<td style="text-align: left;">Super Sandwich Stacker</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440567</td>
+<td style="text-align: left;">Challengers Of The Realm</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440616</td>
+<td style="text-align: left;">Void Admiral: A Space Combat Miniature Wargame</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440631</td>
+<td style="text-align: left;">Uzzle: Crossico</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440669</td>
+<td style="text-align: left;">Monopoly: Armenia</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440714</td>
+<td style="text-align: left;">Save the Wedding</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440730</td>
+<td style="text-align: left;">That’s Dope: Family Game Night Edition</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440732</td>
+<td style="text-align: left;">That’s Dope: Safe For Work Edition Vol. 1</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440733</td>
+<td style="text-align: left;">That’s Dope: After Dark Edition Vol. 1</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440742</td>
+<td style="text-align: left;">The Disappearance of George Devenport</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440750</td>
+<td style="text-align: left;">Patata!</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440814</td>
+<td style="text-align: left;">Clash of Steel: War of Unification – American vs German Complete Starter Set</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440980</td>
+<td style="text-align: left;">Castles &amp; Conquests</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441009</td>
+<td style="text-align: left;">Don’t Fall For It!</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441093</td>
+<td style="text-align: left;">喵江湖 (Meow Jianghu)</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441096</td>
+<td style="text-align: left;">Never Mind the Matchlocks</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441102</td>
+<td style="text-align: left;">Sector AL-IX</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441105</td>
+<td style="text-align: left;">곡예사 GokYeSa : The Flying Artist</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441312</td>
+<td style="text-align: left;">Don’t Spell PIG</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441356</td>
+<td style="text-align: left;">The Bank Heist</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">439332</td>
+<td style="text-align: left;">指感覚 2 (Finger Sensation 2)</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440633</td>
+<td style="text-align: left;">Rainbows &amp; Unicorns</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440694</td>
+<td style="text-align: left;">Atsumare! Tsuburana Hitomi no Suizokukan</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440699</td>
+<td style="text-align: left;">Spacio</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440741</td>
+<td style="text-align: left;">Ah Ouinnn? Édition Famille</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440773</td>
+<td style="text-align: left;">Qwaffle</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440947</td>
+<td style="text-align: left;">Slayers of Valika</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440998</td>
+<td style="text-align: left;">KoolWheelz: The Classic Drag Racing Game</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441014</td>
+<td style="text-align: left;">Talam Ramadan</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441016</td>
+<td style="text-align: left;">Taikun</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441306</td>
+<td style="text-align: left;">Exquisite Corpse: Monster Rummy</td>
+<td style="text-align: right;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">439113</td>
+<td style="text-align: left;">tottarot</td>
+<td style="text-align: right;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440684</td>
+<td style="text-align: left;">Castle of Mind: Wyvern</td>
+<td style="text-align: right;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440698</td>
+<td style="text-align: left;">Monopoly: Schitt’s Creek</td>
+<td style="text-align: right;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441007</td>
+<td style="text-align: left;">Papermade Duel</td>
+<td style="text-align: right;">2021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441386</td>
+<td style="text-align: left;">Super Wings: Flying Control Tower</td>
+<td style="text-align: right;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440720</td>
+<td style="text-align: left;">Ель Шкарпетос (El Scarpetos)</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440920</td>
+<td style="text-align: left;">MadPoly: Fun Party Drinking Board Game</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440766</td>
+<td style="text-align: left;">Турнир Кренделя (Pretzel Tournament)</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440812</td>
+<td style="text-align: left;">理蕃戰爭（Aboriginal Pacifier）</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440718</td>
+<td style="text-align: left;">Sajtos bújócska</td>
+<td style="text-align: right;">2018</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440746</td>
+<td style="text-align: left;">Civics in Chaos</td>
+<td style="text-align: right;">2018</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440866</td>
+<td style="text-align: left;">Fossil Find</td>
+<td style="text-align: right;">2017</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441099</td>
+<td style="text-align: left;">Chronicards: Histoire du monde</td>
+<td style="text-align: right;">2013</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440646</td>
+<td style="text-align: left;">Chronicards: Histoire des sports</td>
+<td style="text-align: right;">2012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440723</td>
+<td style="text-align: left;">Familie Sparky Jump!</td>
+<td style="text-align: right;">2009</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440946</td>
+<td style="text-align: left;">Pop’n Music Card Game</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440729</td>
+<td style="text-align: left;">Le MEGALO</td>
+<td style="text-align: right;">1996</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440618</td>
+<td style="text-align: left;">In the Age of Bismarck and Napoleon III</td>
+<td style="text-align: right;">1994</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440769</td>
+<td style="text-align: left;">Golfway</td>
+<td style="text-align: right;">1982</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441045</td>
+<td style="text-align: left;">A kis postás</td>
+<td style="text-align: right;">1962</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441074</td>
+<td style="text-align: left;">Afrikai vadászat</td>
+<td style="text-align: right;">1960</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441088</td>
+<td style="text-align: left;">Erdei iskola</td>
+<td style="text-align: right;">1960</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440712</td>
+<td style="text-align: left;">Owzat</td>
+<td style="text-align: right;">1944</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441098</td>
+<td style="text-align: left;">Tiddlynetball</td>
+<td style="text-align: right;">1930</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440624</td>
+<td style="text-align: left;">Super Mario: Mystery Block Party Game</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440632</td>
+<td style="text-align: left;">Igaz?Gyöngyök</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440637</td>
+<td style="text-align: left;">Trash Orbit</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440710</td>
+<td style="text-align: left;">Օլիգոպոլիա: Բիզնես խաղ (Oligopoly: Business game)</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440717</td>
+<td style="text-align: left;">Fuchs aus dem Loch</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">440804</td>
+<td style="text-align: left;">Dweores: The Last Five Great Tribes</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440909</td>
+<td style="text-align: left;">Trenches!</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441290</td>
+<td style="text-align: left;">Wer weiß es?</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

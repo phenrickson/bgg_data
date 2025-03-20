@@ -60,3 +60,5 @@ gha-creds-*.json
 # ignore html version of readme
 README.html
 /.quarto/
+/logs/
+/_site/

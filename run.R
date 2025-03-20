@@ -18,7 +18,4 @@ cat(paste0("Running pipeline in ", env, " environment\n"))
 cat(paste0("Using targets store: ", Sys.getenv("TAR_PROJECT"), "\n"))
 
 # Run the pipeline
-targets::tar_make(reporter = "summary")
-
-# Show results
-targets::tar_glimpse()
+targets::tar_make()

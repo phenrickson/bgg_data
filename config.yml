@@ -1,14 +1,14 @@
 default:
-  prefix: "dev"
+  prefix: "raw"
   schema: "dev"
   bucket: "bgg_data_dev"
   project_id: "gcp-demos-411520"
   batch_size: 20
-  workers: 2
+  workers: 4
   log_level: "DEBUG"
   
 staging:
-  prefix: "staging"
+  prefix: "raw"
   schema: "staging"
   bucket: "bgg_data_staging"
   project_id: "gcp-demos-411520"

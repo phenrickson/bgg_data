@@ -20,17 +20,22 @@ library(targets)
 library(dplyr)
 library(tibble)
 library(qs)
+library(qs2)
+library(purrr)
 library(googleCloudStorageR)
 
 # set scopes for authentication
 googleCloudStorageR:::set_scopes()
 # authenticate via encrypted json
 googleCloudStorageR::gcs_auth(
-  json_file = gargle::secret_decrypt_json(
-    path = ".secrets/gcp-demos",
-    key = "GCS_AUTH_KEY"
-  )
+    json_file = gargle::secret_decrypt_json(
+        path = ".secrets/gcp-demos",
+        key = "GCS_AUTH_KEY"
+    )
 )
+
+# src code
+targets::tar_source("src")
 
 # load most recent bggs
 tar_load(games_batch)
@@ -39,7 +44,7 @@ tar_load(games_batch)
 googleCloudStorageR::gcs_global_bucket(bucket = "bgg_data")
 ```
 
-## pipeline
+## Pipeline
 
 ```{r}
 #| fig-align: center
@@ -50,47 +55,90 @@ targets::tar_visnetwork(targets_only = T)
 ```
 
 
-## data
+## Data
 
 batches of games requested from API
 
-```{r message = F}
-games_objs <-
-  googleCloudStorageR::gcs_list_objects(
-    prefix = "raw/objects/games",
-    versions = T,
-    detail = "full"
-  ) |>
-  filter(name == "raw/objects/games") |>
-  select(bucket, name, generation, size, updated)
+```{r}
+#| message: false
+#| label: view batches of games saved in buckets
+list_games_objects = function(bucket, prefix = "raw/objects/games") {
+    googleCloudStorageR::gcs_list_objects(
+        bucket = bucket,
+        prefix = prefix,
+        versions = T,
+        detail = "full"
+    ) |>
+        filter(name == prefix) |>
+        arrange(desc(updated))
+}
 
-games_objs |>
-  arrange(desc(updated)) |>
-  knitr::kable(format = "markdown")
+print_games_objects = function(obj) {
+    obj |>
+        select(bucket, name, generation, updated) |>
+        knitr::kable(format = "markdown")
+}
+
+buckets = c("bgg_data", "bgg_data_dev", "bgg_data_staging")
+games_objs <- map(
+    buckets,
+    ~ list_games_objects(bucket = .x)
+)
+names(games_objs) = buckets
 ```
+
+::: {.panel-tabset}
+
+### Production
+
+```{r}
+#| code-fold: false
+games_objs$bgg_data |>
+    print_games_objects()
+
+```
+
+### Staging
+
+```{r}
+#| code-fold: false
+games_objs$bgg_data_staging |>
+    print_games_objects()
+
+```
+
+:::
+
+## Games
+
+What's new on BGG?
 
 ```{r message = F}
 # get last two generations
 gens <-
-  games_objs |>
-  arrange(desc(updated)) |>
-  head(2) |>
-  pull(generation)
+    games_objs$bgg_data |>
+    arrange(desc(updated)) |>
+    head(2) |>
+    pull(generation)
 
 # most recent gen
-active_games <- gcs_get_object("raw/objects/games", generation = gens[1]) |>
-  qs::qdeserialize()
-previous_games <- gcs_get_object("raw/objects/games", generation = gens[2]) |>
-  qs::qdeserialize()
+active_games <- load_games_from_bucket(
+    bucket = "bgg_data",
+    generation = gens[1]
+)
+previous_games <- load_games_from_bucket(
+    bucket = "bgg_data",
+    generation = gens[2]
+)
 
 # find games only in most recent batch
 active_games |>
-  anti_join(
-    previous_games |>
-      select(game_id)
-  ) |>
-  bggUtils:::unnest_info() |>
-  select(game_id, name, yearpublished) |>
-  arrange(desc(yearpublished)) |>
-  knitr::kable(format = "markdown")
+    anti_join(
+        previous_games |>
+            select(game_id)
+    ) |>
+    bggUtils:::unnest_info() |>
+    select(game_id, name, yearpublished) |>
+    arrange(desc(yearpublished)) |>
+    knitr::kable(format = "markdown")
 ```

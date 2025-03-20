@@ -40,7 +40,8 @@ tar_option_set(
     "bigrquery",
     "bggUtils",
     "here",
-    "logger"
+    "logger",
+    "qs2"
   ),
   repository = "local",
   memory = "transient",
@@ -91,12 +92,12 @@ list(
     command = bgg_ids |>
       filter(type == "boardgame")
   ),
-  # create batches
+  # create batches - use smaller batch size to reduce API load
   tar_target(
     name = batch_numbers,
     command = game_ids$id %>%
       create_batches(
-        size = 20
+        size = cfg$batch_size # Use batch size from config
       )
   ),
   # append to ids and add groups
@@ -152,16 +153,5 @@ list(
       get_ranked_games(),
     format = "qs",
     repository = "gcp"
-  ),
-  # Render Quarto document instead of R Markdown
-  tar_target(
-    name = readme,
-    command = {
-      # Render Quarto document
-      quarto::quarto_render("index.qmd")
-      # Return the output file path
-      "docs/index.html"
-    },
-    cue = tar_cue(mode = "always")
   )
 )

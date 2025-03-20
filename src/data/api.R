@@ -64,46 +64,82 @@ request_batch <- function(games_batch, max_tries = 5) {
 
   message(paste("batch", b, sep = ": "))
 
-  tryCatch(
-    {
-      result <- games_batch |>
-        pull(id) |>
-        request_games(max_tries = max_tries)
+  # Get environment config
+  env <- Sys.getenv("R_CONFIG_ACTIVE", "default")
+  cfg <- config::get(config = env)
+  
+  # Track retry attempts for this batch
+  attempt <- 1
+  max_batch_retries <- 3
+  
+  while (attempt <= max_batch_retries) {
+    tryCatch(
+      {
+        result <- games_batch |>
+          pull(id) |>
+          request_games(max_tries = max_tries)
 
-      # Log success
-      message(paste("Successfully processed batch", b))
+        # Log success
+        message(paste("Successfully processed batch", b))
 
-      return(result)
-    },
-    error = function(e) {
-      # Log detailed error
-      message(paste(
-        "Failed to process batch",
-        b,
-        ":",
-        e$message
-      ))
-
-      # Determine if we should retry or fail
-      if (
-        inherits(e, "bgg_api_error") &&
-          !is.null(e$details$status_code) &&
-          e$details$status_code %in%
-            c(429, 503, 504)
-      ) {
-        # For rate limiting or server errors, return empty but don't fail pipeline
+        return(result)
+      },
+      error = function(e) {
+        # Log detailed error
         message(paste(
-          "Returning empty result for batch",
+          "Failed to process batch",
           b,
-          "due to recoverable error"
+          "attempt", attempt, "of", max_batch_retries,
+          ":",
+          e$message
         ))
-        return(tibble::tibble())
-      } else {
-        # Re-throw error for critical failures
-        stop(e)
+
+        # Determine if we should retry or fail
+        if (
+          inherits(e, "bgg_api_error") &&
+            !is.null(e$details$status_code) &&
+            e$details$status_code %in%
+              c(429, 503, 504)
+        ) {
+          # For rate limiting errors, add an increasing delay before retrying
+          if (e$details$status_code == 429) {
+            retry_delay <- 30 * attempt  # Increasing delay: 30s, 60s, 90s
+            message(paste(
+              "Rate limit hit (429). Waiting", 
+              retry_delay, 
+              "seconds before retry..."
+            ))
+            Sys.sleep(retry_delay)
+          } else {
+            # For other server errors, use a shorter delay
+            message("Server error. Waiting 10 seconds before retry...")
+            Sys.sleep(10)
+          }
+          
+          # Signal to retry by returning NULL
+          return(NULL)
+        } else {
+          # Re-throw error for critical failures
+          stop(e)
+        }
       }
+    ) -> result
+    
+    # If we got a result (not NULL), break the loop
+    if (!is.null(result)) {
+      return(result)
     }
-  )
+    
+    # Increment attempt counter
+    attempt <- attempt + 1
+  }
+  
+  # If we've exhausted all retries, return empty tibble
+  message(paste(
+    "Exhausted all", max_batch_retries, "retries for batch", b,
+    "- returning empty result"
+  ))
+  return(tibble::tibble())
 }
 
 #' Request games from BGG API
@@ -174,6 +210,21 @@ request_bgg_api <- function(game_ids, max_tries = 5) {
     sep = ""
   )
 
+  # Get number of workers from config to adjust throttling
+  env <- Sys.getenv("R_CONFIG_ACTIVE", "default")
+  cfg <- config::get(config = env)
+  workers <- cfg$workers
+
+  # Calculate a more conservative throttle rate based on workers
+  # Default to 2 requests per minute per worker
+  throttle_rate <- 2 / (60 * workers)
+
+  message(paste(
+    "Using throttle rate of",
+    round(1 / throttle_rate),
+    "seconds between requests"
+  ))
+
   tryCatch(
     {
       # request to bgg api
@@ -182,11 +233,22 @@ request_bgg_api <- function(game_ids, max_tries = 5) {
       # submit request and get response
       resp <-
         req %>%
-        # throttle rate of request
-        httr2::req_throttle(5 / 60) %>%
-        # set policies for retry
+        # throttle rate of request - more conservative based on workers
+        httr2::req_throttle(throttle_rate) %>%
+        # set policies for retry with exponential backoff
         httr2::req_retry(
-          max_tries = max_tries
+          max_tries = max_tries,
+          backoff = ~ 10 * 1.5^.x, # Exponential backoff starting at 10 seconds
+          # Specifically handle 429 errors with longer delays
+          is_transient = function(resp) {
+            status <- httr2::resp_status(resp)
+            if (status == 429) {
+              # For 429, add extra sleep time
+              Sys.sleep(15)
+              return(TRUE)
+            }
+            status %in% c(429, 503, 504, 500)
+          }
         ) %>%
         # perform
         httr2::req_perform()

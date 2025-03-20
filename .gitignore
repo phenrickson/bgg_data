@@ -31,8 +31,6 @@ vignettes/*.pdf
 *.knit.md
 # R Environment Variables
 .Renviron
-# pkgdown site
-docs/
 # translation temp files
 po/*~
 # RStudio Connect folder
@@ -61,3 +59,4 @@ gha-creds-*.json
 README.html
 /.quarto/
 /logs/
+/_site/

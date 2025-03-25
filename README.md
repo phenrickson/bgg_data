@@ -35,13 +35,13 @@ create_environments()
 
 ```bash
 # Development
-Rscript run.R default
+Rscript run_pipeline.R default
 
 # Staging
-Rscript run.R staging
+Rscript run_pipeline.R staging
 
 # Production
-Rscript run.R production
+Rscript run_pipeline.R production
 ```
 
 ### Comparing and Promoting Data

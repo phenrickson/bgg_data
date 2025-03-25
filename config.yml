@@ -1,6 +1,5 @@
 default:
   prefix: "raw"
-  schema: "dev"
   bucket: "bgg_data_dev"
   project_id: "gcp-demos-411520"
   batch_size: 20
@@ -9,7 +8,6 @@ default:
   
 staging:
   prefix: "raw"
-  schema: "staging"
   bucket: "bgg_data_staging"
   project_id: "gcp-demos-411520"
   batch_size: 20
@@ -18,7 +16,6 @@ staging:
   
 production:
   prefix: "raw"
-  schema: "raw"
   bucket: "bgg_data"
   project_id: "gcp-demos-411520"
   batch_size: 20

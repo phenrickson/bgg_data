@@ -67,17 +67,19 @@ request_batch <- function(games_batch, max_tries = 5) {
   # Get environment config
   env <- Sys.getenv("R_CONFIG_ACTIVE", "default")
   cfg <- config::get(config = env)
-  
+
   # Track retry attempts for this batch
   attempt <- 1
   max_batch_retries <- 3
-  
+
+  # Pre-extract IDs to avoid repeated pull operations
+  game_ids <- pull(games_batch, id)
+
   while (attempt <= max_batch_retries) {
     tryCatch(
       {
-        result <- games_batch |>
-          pull(id) |>
-          request_games(max_tries = max_tries)
+        # Direct call with pre-extracted IDs
+        result <- request_games(game_ids, max_tries = max_tries)
 
         # Log success
         message(paste("Successfully processed batch", b))
@@ -89,7 +91,10 @@ request_batch <- function(games_batch, max_tries = 5) {
         message(paste(
           "Failed to process batch",
           b,
-          "attempt", attempt, "of", max_batch_retries,
+          "attempt",
+          attempt,
+          "of",
+          max_batch_retries,
           ":",
           e$message
         ))
@@ -99,23 +104,24 @@ request_batch <- function(games_batch, max_tries = 5) {
           inherits(e, "bgg_api_error") &&
             !is.null(e$details$status_code) &&
             e$details$status_code %in%
-              c(429, 503, 504)
+              c(429, 502, 503, 504, 500)
         ) {
-          # For rate limiting errors, add an increasing delay before retrying
+          # For rate limiting errors, use a more efficient retry strategy
           if (e$details$status_code == 429) {
-            retry_delay <- 30 * attempt  # Increasing delay: 30s, 60s, 90s
+            # Shorter initial delay but still increasing
+            retry_delay <- 15 * attempt # 15s, 30s, 45s instead of 30s, 60s, 90s
             message(paste(
-              "Rate limit hit (429). Waiting", 
-              retry_delay, 
+              "Rate limit hit (429). Waiting",
+              retry_delay,
               "seconds before retry..."
             ))
             Sys.sleep(retry_delay)
           } else {
             # For other server errors, use a shorter delay
-            message("Server error. Waiting 10 seconds before retry...")
-            Sys.sleep(10)
+            message("Server error. Waiting 5 seconds before retry...")
+            Sys.sleep(5)
           }
-          
+
           # Signal to retry by returning NULL
           return(NULL)
         } else {
@@ -124,19 +130,22 @@ request_batch <- function(games_batch, max_tries = 5) {
         }
       }
     ) -> result
-    
+
     # If we got a result (not NULL), break the loop
     if (!is.null(result)) {
       return(result)
     }
-    
+
     # Increment attempt counter
     attempt <- attempt + 1
   }
-  
+
   # If we've exhausted all retries, return empty tibble
   message(paste(
-    "Exhausted all", max_batch_retries, "retries for batch", b,
+    "Exhausted all",
+    max_batch_retries,
+    "retries for batch",
+    b,
     "- returning empty result"
   ))
   return(tibble::tibble())
@@ -215,9 +224,9 @@ request_bgg_api <- function(game_ids, max_tries = 5) {
   cfg <- config::get(config = env)
   workers <- cfg$workers
 
-  # Calculate a more conservative throttle rate based on workers
-  # Default to 2 requests per minute per worker
-  throttle_rate <- 2 / (60 * workers)
+  # Calculate a more optimized throttle rate based on workers
+  # Increase to 5 requests per minute per worker while still respecting API limits
+  throttle_rate <- 5 / (60 * workers)
 
   message(paste(
     "Using throttle rate of",
@@ -233,21 +242,21 @@ request_bgg_api <- function(game_ids, max_tries = 5) {
       # submit request and get response
       resp <-
         req %>%
-        # throttle rate of request - more conservative based on workers
+        # Apply optimized throttle rate (5 req/min/worker instead of original 2 req/min/worker)
         httr2::req_throttle(throttle_rate) %>%
-        # set policies for retry with exponential backoff
+        # set policies for retry with more efficient exponential backoff
         httr2::req_retry(
           max_tries = max_tries,
-          backoff = ~ 10 * 1.5^.x, # Exponential backoff starting at 10 seconds
-          # Specifically handle 429 errors with longer delays
+          backoff = ~ 5 * 1.5^.x, # Faster exponential backoff starting at 5 seconds instead of 10
+          # Specifically handle 429 errors with more efficient delays
           is_transient = function(resp) {
             status <- httr2::resp_status(resp)
             if (status == 429) {
-              # For 429, add extra sleep time
-              Sys.sleep(15)
+              # For 429, add reduced sleep time
+              Sys.sleep(10) # Reduced from 15 seconds
               return(TRUE)
             }
-            status %in% c(429, 503, 504, 500)
+            status %in% c(429, 502, 503, 504, 500)
           }
         ) %>%
         # perform

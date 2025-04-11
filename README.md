@@ -60,3 +60,53 @@ promote_data("staging", "production", dry_run = FALSE)
 ```
 
 See `src/utils/environment_guide.R` for more detailed examples and workflow recommendations.
+
+## Using the Makefile
+
+A Makefile has been added to simplify common operations. Here are some examples:
+
+```bash
+# Show available commands
+make help
+
+# Run the pipeline in the default environment
+make run
+
+# Run the pipeline in a specific environment
+make run ENV=staging
+# Or use the convenience targets
+make run-dev
+make run-staging
+make run-prod
+
+# Create all environments
+make create-environments
+
+# Promote data between environments
+make promote                # Full promotion (dev → staging → prod)
+make promote-dev-staging    # Dev to staging only
+make promote-staging-prod   # Staging to production only
+make dry-run-promote        # Dry run (shows what would be promoted)
+
+# Run the test pipeline
+make test
+
+# Render Quarto documents
+make render
+make render-preview    # Render and open preview in browser
+
+# Clean up temporary files
+make clean
+
+# Clean up all generated files including targets stores
+make clean-all
+
+# Execute full pipeline workflow (create environments, run in all environments with promotion)
+make full-pipeline
+
+# Execute partial workflows
+make dev-to-staging
+make staging-to-prod
+```
+
+The Makefile provides a convenient interface for all common operations in the project.

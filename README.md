@@ -26,44 +26,51 @@ The project now supports separate environments for development, staging, and pro
 
 To set up the necessary infrastructure for environment separation:
 
-```r
-source("src/utils/create_environments.R")
-create_environments()
+```bash
+# Create all environments
+make create-environments
 ```
 
 ### Running in Different Environments
 
 ```bash
 # Development
-Rscript run_pipeline.R default
+make run-dev
 
 # Staging
-Rscript run_pipeline.R staging
+make run-staging
 
 # Production
-Rscript run_pipeline.R production
+make run-prod
+
+# Or specify environment
+make run ENV=staging
 ```
 
 ### Comparing and Promoting Data
 
 The project includes utilities for comparing data between environments and promoting data from one environment to another:
 
-```r
-# Compare environments
-source("src/utils/compare_environments.R")
-compare_game_data("staging", "production")
+```bash
+# Dry run (shows what would be promoted without making changes)
+make dry-run-promote
 
-# Promote data (dry run first)
-source("src/utils/promote_data.R")
-promote_data("staging", "production", dry_run = TRUE)
-promote_data("staging", "production", dry_run = FALSE)
+# Promote data between environments
+make promote                # Full promotion (dev → staging → prod)
+make promote-dev-staging    # Dev to staging only
+make promote-staging-prod   # Staging to production only
+
+# Execute workflow targets that include promotion
+make full-pipeline          # Full pipeline with all environments
+make dev-to-staging         # Run dev pipeline and promote to staging
+make staging-to-prod        # Run staging pipeline and promote to production
 ```
 
 See `src/utils/environment_guide.R` for more detailed examples and workflow recommendations.
 
 ## Using the Makefile
 
-A Makefile has been added to simplify common operations. Here are some examples:
+A Makefile has been added to simplify common operations. Here are the available commands:
 
 ```bash
 # Show available commands
@@ -74,10 +81,14 @@ make run
 
 # Run the pipeline in a specific environment
 make run ENV=staging
-# Or use the convenience targets
+
+# Run the pipeline in specific environments (convenience targets)
 make run-dev
 make run-staging
 make run-prod
+
+# Run the test pipeline
+make test
 
 # Create all environments
 make create-environments
@@ -88,12 +99,9 @@ make promote-dev-staging    # Dev to staging only
 make promote-staging-prod   # Staging to production only
 make dry-run-promote        # Dry run (shows what would be promoted)
 
-# Run the test pipeline
-make test
-
 # Render Quarto documents
 make render
-make render-preview    # Render and open preview in browser
+make render-preview         # Render and open preview in browser
 
 # Clean up temporary files
 make clean
@@ -101,12 +109,10 @@ make clean
 # Clean up all generated files including targets stores
 make clean-all
 
-# Execute full pipeline workflow (create environments, run in all environments with promotion)
-make full-pipeline
-
-# Execute partial workflows
-make dev-to-staging
-make staging-to-prod
+# Pipeline workflow targets
+make full-pipeline          # Execute full pipeline workflow (create environments, run in all environments with promotion)
+make dev-to-staging         # Run dev pipeline and promote to staging
+make staging-to-prod        # Run staging pipeline and promote to production
 ```
 
-The Makefile provides a convenient interface for all common operations in the project.
+The Makefile provides a convenient interface for all common operations in the project. Use `make help` to see a list of all available commands.

@@ -1,4 +1,3 @@
-
 # bgg_data
 
 Loading historical data from BGG for predictive modeling and analysis
@@ -36,12 +35,33 @@ create_environments()
 ```bash
 # Development
 Rscript run_pipeline.R default
+Rscript write_to_parquet.R default
 
 # Staging
 Rscript run_pipeline.R staging
+Rscript write_to_parquet.R staging
 
 # Production
 Rscript run_pipeline.R production
+Rscript write_to_parquet.R production
+```
+
+### Parquet File Generation and Upload
+
+The `write_to_parquet.R` script now supports environment-specific configuration for generating and uploading Parquet files:
+
+- Converts games data to Parquet format
+- Uploads to the specified environment's Google Cloud Storage bucket
+- Uses configuration from `config.yml`
+
+Example usage:
+```bash
+# Generate and upload Parquet file for the default (development) environment
+Rscript write_to_parquet.R
+
+# Generate and upload Parquet file for staging or production
+Rscript write_to_parquet.R staging
+Rscript write_to_parquet.R production
 ```
 
 ### Comparing and Promoting Data
